@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:14:11 by eviscont          #+#    #+#             */
-/*   Updated: 2024/07/16 20:35:42 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/07/16 20:49:57 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,22 +27,17 @@ t_env_lst *new_env_node(char *name, char *content)
 
 void    set_env(char **env, t_minishell *mini)
 {
-    int         i;
     char        **split_env;
     t_env_lst   *current;
     t_env_lst   *new_node;
 
-    i = 0;
     mini->env_lst = NULL;
-    while (env[i] != NULL)
+    while (*env != NULL)
     {
-        split_env = ft_split(env[i], '=');
+        split_env = ft_split(*env, '=');
         if (!split_env[0] || !split_env[1])
-        {
-            i++;
-        }
+			break;
         new_node = new_env_node(split_env[0], split_env[1]);
-
         if (!mini->env_lst)
             mini->env_lst = new_node;
         else
@@ -52,13 +47,10 @@ void    set_env(char **env, t_minishell *mini)
                 current = current->next;
             current->next = new_node;
         }
-
-        // Free split_env array after use
         free(split_env[0]);
         free(split_env[1]);
         free(split_env);
-
-        i++;
+        env++;
     }
 }
 
@@ -73,5 +65,10 @@ int main(int argc, char **argv, char **env)
     if (!mini)
         return (1);
     set_env(env, mini);
+	while (mini->env_lst != NULL)
+	{
+		ft_printf("%s %s\n", mini->env_lst->name, mini->env_lst->content);
+		mini->env_lst = mini->env_lst->next;
+	}
     return (0);
 }
