@@ -6,7 +6,7 @@
 #    By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/14 16:41:04 by eviscont          #+#    #+#              #
-#    Updated: 2024/02/02 16:49:08 by eviscont         ###   ########.fr        #
+#    Updated: 2024/07/17 11:17:48 by eviscont         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,23 +61,23 @@ SRCS		= ft_memset.c \
 			ft_printf/ft_print_str.c ft_printf/ft_print_to_base.c ft_printf/ft_print_unsign.c \
 			ft_printf/ft_printf.c \
 			get_next_line/get_next_line.c \
-			
+
 HDRS = libft.h
 OBJS		= $(patsubst %.c,%.o,$(notdir $(SRCS)))
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	ar rcs $(NAME) $(OBJS)
+	@ar rcs $(NAME) $(OBJS)
 
 $(OBJS): $(SRCS) $(HDRS)
-	gcc $(CFLAGS) $(SRCS)
+	@gcc $(CFLAGS) $(SRCS)
 
 clean:
-	rm -f $(OBJS)
+	@rm -f $(OBJS)
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
 

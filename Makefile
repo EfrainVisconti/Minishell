@@ -6,7 +6,7 @@
 #    By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/10 13:58:33 by eviscont          #+#    #+#              #
-#    Updated: 2024/07/11 11:52:07 by eviscont         ###   ########.fr        #
+#    Updated: 2024/07/17 16:00:18 by eviscont         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,13 +75,13 @@ NC = \033[0m # No color (reiniciar)
 #Comandos
 DEL			=	rm -f
 CC			=	gcc
-CCFLAGS		=	-Wall -Wextra -Werror
+CCFLAGS		=	-Wall -Wextra -Werror -lreadline #-fsanitize=leak
 
 #Nombre ejecutable
 NAME		=	minishell
 
 #Ficheros
-SRC_FILES	=	00_main
+SRC_FILES	=	00_main 01_free 02_utils
 SRC			=	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ			=	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 LIBFT		=	libs/libft
