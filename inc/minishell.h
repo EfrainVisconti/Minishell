@@ -6,7 +6,7 @@
 /*   By: usuario <usuario@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:05:03 by eviscont          #+#    #+#             */
-/*   Updated: 2024/07/25 00:56:59 by usuario          ###   ########.fr       */
+/*   Updated: 2024/07/25 01:05:19 by usuario          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,13 @@
 # define TRUE 1
 # define ERROR -1
 
-# define WORD 1
+# define OTHER 1
 # define RED_FROM 2	//operator '<'
 # define RED_TO 3	//operator '>'
 # define HEREDOC 4	//operator '<<'
 # define APPEND 5	//operator '>>'
-# define PIPE 6		//operator '|'
+# define PIPE 6		//operator '|'LS
+
 
 
 //linked list for enviroment variables
