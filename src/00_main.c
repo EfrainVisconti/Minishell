@@ -3,15 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   00_main.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
+/*   By: usuario <usuario@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:14:11 by eviscont          #+#    #+#             */
-/*   Updated: 2024/07/17 15:37:35 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/07/24 22:43:17 by usuario          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+// checks there are not unclosed quotes
+void	check_unclosed_quotes(char *args)
+{
+	int	i;
+	int	oneq;
+	int	twoq;
+
+	i = 0;
+	oneq = 0;
+	twoq = 0;
+	while (args[i])
+	{
+		if (args[i] == '\'')
+			oneq++;
+		else if (args[i] == '"')
+			twoq++;
+		i++;
+	}
+	if (twoq % 2 != 0 || oneq % 2 != 0)
+		print_error(1);
+}
+
+// tokenize command line input
+void	tokens_init(t_minishell *mini)
+{
+	
+}
+
+// find a specific environment variable
 t_env	*find_env_var(t_env **env_var, char *name)
 {
 	t_env	*current;
@@ -26,6 +55,7 @@ t_env	*find_env_var(t_env **env_var, char *name)
 	return (NULL);
 }
 
+// stores the paths of the binaries
 void	set_bin_path(t_minishell *mini)
 {
 	t_env	*bin_path;
@@ -37,6 +67,7 @@ void	set_bin_path(t_minishell *mini)
 		mini->bin_path = NULL;
 }
 
+// creates a new environment variable
 t_env	*new_env_node(char *name, char *content)
 {
 	t_env	*new_node;
@@ -50,6 +81,7 @@ t_env	*new_env_node(char *name, char *content)
 	return (new_node);
 }
 
+// initialize environment variables
 void	set_env(char **env, t_minishell *mini)
 {
 	char	**split_env;
@@ -108,6 +140,7 @@ int	main(int argc, char **argv, char **env)
 			ft_printf("exit\n");
 			break ;
 		}
+		check_unclosed_quotes(mini->input);
 	}
 	//testeo init
 	//testeo end

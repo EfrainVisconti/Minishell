@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
+/*   By: usuario <usuario@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:05:03 by eviscont          #+#    #+#             */
-/*   Updated: 2024/07/17 15:42:13 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/07/25 00:56:59 by usuario          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,15 @@
 
 # define FALSE 0
 # define TRUE 1
+# define ERROR -1
+
+# define WORD 1
+# define RED_FROM 2	//operator '<'
+# define RED_TO 3	//operator '>'
+# define HEREDOC 4	//operator '<<'
+# define APPEND 5	//operator '>>'
+# define PIPE 6		//operator '|'
+
 
 //linked list for enviroment variables
 typedef struct s_env
@@ -28,6 +37,15 @@ typedef struct s_env
 	char			*content;
 	struct s_env	*next;
 }					t_env;
+
+typedef struct s_tok
+{
+	int				pos;
+	int				type;
+	char			*content;
+	struct s_tok	*next;
+	struct s_tok	*prev;
+}					t_tok;
 
 //main struct for the program
 typedef struct s_minishell
@@ -44,6 +62,7 @@ void	set_bin_path(t_minishell *mini);
 t_env	*find_env_var(t_env **env_var, char *name);
 
 //utils.c
+void	print_error(int id);
 int		ft_strcmp(char *s1, char *s2);
 char	*ft_strcpy(char	*s1, char *s2);
 
