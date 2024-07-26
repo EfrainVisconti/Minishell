@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   02_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: usuario <usuario@student.42.fr>            +#+  +:+       +#+        */
+/*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 12:12:13 by eviscont          #+#    #+#             */
-/*   Updated: 2024/07/24 22:17:34 by usuario          ###   ########.fr       */
+/*   Updated: 2024/07/26 20:48:51 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,13 @@
 void	print_error(int id)
 {
 	if (id == 1)
-		ft_printf("ERROR: open quotes\n");
+		ft_putstr_fd("error: open quotes\n", 2);
+	if (id == 2)
+		ft_putstr_fd("syntax error near unexpected token `|'\n", 2);
+	if (id == 3)
+		ft_putstr_fd("syntax error near unexpected token `>'\n", 2);
+	if (id == 4)
+		ft_putstr_fd("syntax error near unexpected token `<'\n", 2);
 }
 
 int	ft_strcmp(char *s1, char *s2)

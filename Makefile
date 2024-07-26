@@ -6,7 +6,7 @@
 #    By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/10 13:58:33 by eviscont          #+#    #+#              #
-#    Updated: 2024/07/25 18:48:21 by eviscont         ###   ########.fr        #
+#    Updated: 2024/07/26 21:29:46 by eviscont         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ CCFLAGS		=	-Wall -Wextra -Werror -lreadline #-fsanitize=leak
 NAME		=	minishell
 
 #Ficheros
-SRC_FILES	=	00_main 01_free 02_utils 03_environment 04_tokenizer
+SRC_FILES	=	00_main 01_free 02_utils 03_environment 04_tokenizer print_aux
 SRC			=	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ			=	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 LIBFT		=	libs/libft

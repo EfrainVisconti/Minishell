@@ -6,11 +6,30 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:14:11 by eviscont          #+#    #+#             */
-/*   Updated: 2024/07/25 19:24:28 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/07/26 21:30:02 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+// checks if there are wrong numbers of pipes or redirections
+int	check_pipe_redir(char *input)
+{
+	int	i;
+
+	i = 0;
+	while (input[i] != '\0')
+	{
+		if (input[i] == '|' && input[i + 1] == '|')
+			return (print_error(2), FALSE);
+		else if (input[i] == '>' && input[i + 1] == '>' && input[i + 2] == '>')
+			return (print_error(3), FALSE);
+		else if (input[i] == '<' && input[i + 1] == '<' && input[i + 2] == '<')
+			return (print_error(4), FALSE);
+		i++;
+	}
+	return (TRUE);
+}
 
 // checks there are not unclosed quotes
 int	check_unclosed_quotes(char *args)
@@ -53,21 +72,21 @@ int	main(int argc, char **argv, char **env)
 	{
 		input = readline("minishell:");
 		if (input == NULL)
-			break ;
+			return (1) ;
 		mini->input = ft_strdup(input);
 		add_history(input);
 		if (!ft_strcmp(input, "exit"))
 		{
-			ft_printf("exit\n");
+			ft_putstr_fd("exit\n", 1);
 			break ;
 		}
 		else if (!ft_strcmp(input, "\"\"") || !ft_strcmp(input, "\'\'"))
-			ft_printf("Command '' not found\n"); //$? 127 TO DO
-		else if (check_unclosed_quotes(mini->input))
+			ft_putstr_fd("Command '' not found\n", 1); //$? 127 TO DO
+		else if (check_unclosed_quotes(mini->input) && check_pipe_redir(mini->input)) //$? 2 TO DO
 			count_tokens(mini->input);
+		print_aux(mini);
 		free(mini->input);
 	}
-	free(input);
 	free_program(mini);
 	return (0);
 }

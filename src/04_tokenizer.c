@@ -6,11 +6,28 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 21:35:30 by usuario           #+#    #+#             */
-/*   Updated: 2024/07/25 22:06:33 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/07/26 21:46:18 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+int	add_space_aux(t_minishell *mini)
+{
+	int		q[2];
+	int		i;
+	int		len;
+	char	*aux
+
+	q[0] = 0;
+	q[1] = 0;
+	i = 0;
+	len = ft_strlen(mini->input);
+	aux = (char *)malloc(sizeof(char) * len * 2);
+	while ()
+
+
+}
 
 int	count_tokens(char *s)
 {

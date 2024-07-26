@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:05:03 by eviscont          #+#    #+#             */
-/*   Updated: 2024/07/25 19:05:48 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/07/26 21:29:30 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_minishell
 
 //main.c
 int	check_unclosed_quotes(char *args);
+int	check_pipe_redir(char *input);
 
 //free.c
 void	free_program(t_minishell *mini);
@@ -68,5 +69,8 @@ t_env	*find_env_var(t_env **env_var, char *name);
 
 //tokenizer
 int	count_tokens(char *s);
+
+//print_aux
+void	print_aux(t_minishell *mini);
 
 #endif
