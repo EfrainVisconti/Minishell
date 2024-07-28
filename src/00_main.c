@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:14:11 by eviscont          #+#    #+#             */
-/*   Updated: 2024/07/26 21:30:02 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/07/28 21:36:35 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,33 +31,11 @@ int	check_pipe_redir(char *input)
 	return (TRUE);
 }
 
-// checks there are not unclosed quotes
-int	check_unclosed_quotes(char *args)
-{
-	int	i;
-	int	oneq;
-	int	twoq;
-
-	i = 0;
-	oneq = 0;
-	twoq = 0;
-	while (args[i])
-	{
-		if (args[i] == '\'')
-			oneq++;
-		else if (args[i] == '"')
-			twoq++;
-		i++;
-	}
-	if (twoq % 2 != 0 || oneq % 2 != 0)
-		return (print_error(1), FALSE);
-	return (TRUE);
-}
-
 int	main(int argc, char **argv, char **env)
 {
 	t_minishell	*mini;
 	char		*input;
+
 
 	if (argc > 1)
 		return (1);
@@ -82,9 +60,12 @@ int	main(int argc, char **argv, char **env)
 		}
 		else if (!ft_strcmp(input, "\"\"") || !ft_strcmp(input, "\'\'"))
 			ft_putstr_fd("Command '' not found\n", 1); //$? 127 TO DO
-		else if (check_unclosed_quotes(mini->input) && check_pipe_redir(mini->input)) //$? 2 TO DO
-			count_tokens(mini->input);
-		print_aux(mini);
+		else if (check_pipe_redir(mini->input)) //$? 2 TO DO
+		{
+			if (!quotes_tokenizer(add_spaces_tokenizer(mini->input, 0, 0, ft_strlen(mini->input))))
+				print_error(1);
+		}
+		//print_aux(mini);
 		free(mini->input);
 	}
 	free_program(mini);

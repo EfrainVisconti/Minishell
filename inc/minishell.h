@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:05:03 by eviscont          #+#    #+#             */
-/*   Updated: 2024/07/26 21:29:30 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/07/28 21:34:12 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ typedef struct s_minishell
 }					t_minishell;
 
 //main.c
-int	check_unclosed_quotes(char *args);
 int	check_pipe_redir(char *input);
 
 //free.c
@@ -67,8 +66,15 @@ t_env	*new_env_node(char *name, char *content);
 void	set_bin_path(t_minishell *mini);
 t_env	*find_env_var(t_env **env_var, char *name);
 
-//tokenizer
-int	count_tokens(char *s);
+//quotes_tokenizer
+char	**quotes_tokenizer(char *input);
+char	**quotes_tokenizer_aux(char **tokens, char	*s, int start, int end);
+int	count_tokens(char *s, int i, int tokens);
+
+//add_spaces_tokenizer
+char	*add_spaces_tokenizer(char *input, int i, int j, int len);
+int add_spaces_aux(char *input, char *result, int i, int j);
+void	handle_quotes(char c, int *qs, int *qd);
 
 //print_aux
 void	print_aux(t_minishell *mini);
