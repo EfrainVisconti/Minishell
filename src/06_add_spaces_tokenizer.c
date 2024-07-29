@@ -6,19 +6,19 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 21:06:45 by eviscont          #+#    #+#             */
-/*   Updated: 2024/07/28 21:40:35 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/07/29 16:17:48 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
 //handle quote status
-void	handle_quotes(char c, int *qs, int *qd)
+void	handle_quotes(char c, int *sq, int *dq)
 {
-    if (c == '\'' && !(*qd))
-        *qs = !(*qs);
-	else if (c == '"' && !(*qs))
-        *qd = !(*qd);
+    if (c == '\'' && !(*dq))
+        *sq = !(*sq);
+	else if (c == '"' && !(*sq))
+        *dq = !(*dq);
 }
 
 //auxiliary
