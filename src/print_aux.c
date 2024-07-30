@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 21:14:27 by eviscont          #+#    #+#             */
-/*   Updated: 2024/07/26 21:31:17 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/07/30 21:24:36 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,22 @@ void	print_aux(t_minishell *mini)
 	auxe = mini->env;
 	while (auxe)
 	{
-		ft_printf("%s=%s\n", auxe->content, auxe->name);
+		ft_printf("ENV: %s=%s\n", auxe->content, auxe->name);
 		auxe = auxe->next;
 	}
-	ft_printf("---------\n");
+	ft_printf("--------------------------------------------------\n");
 	while (auxm->bin_path[i])
 	{
-		ft_printf("%s\n", auxm->bin_path[i]);
+		ft_printf("PATH: %s\n", auxm->bin_path[i]);
 		i++;
 	}
-	ft_printf("---------\n");
-	ft_printf("%s\n", auxm->input);
+	ft_printf("--------------------------------------------------\n");
+	ft_printf("INPUT: %s\n", auxm->input);
+	ft_printf("--------------------------------------------------\n");
+	i = 0;
+	while (mini->tokens[i] != NULL)
+	{
+		ft_printf("TOKEN[%d]: %s\n", i, mini->tokens[i]);
+		i++;
+	}
 }

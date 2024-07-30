@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   04_quotes_tokenizer.c                              :+:      :+:    :+:   */
+/*   05_quotes_tokenizer.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 21:35:30 by usuario           #+#    #+#             */
-/*   Updated: 2024/07/28 21:42:22 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/07/30 21:20:09 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,5 @@ char	**quotes_tokenizer(char *input)
 		return (NULL);
 	tokens = quotes_tokenizer_aux(tokens, input, 0, 0);
 	tokens[nbr_tokens] = NULL;
-	//testeo
-	int i = 0;
-	while (tokens[i] != NULL)
-	{
-		ft_printf("%s\n", tokens[i]);
-		i++;
-	}
 	return (tokens);
 }

@@ -6,25 +6,39 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:14:11 by eviscont          #+#    #+#             */
-/*   Updated: 2024/07/28 21:36:35 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/07/30 21:25:03 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+//handle quote status
+void	handle_quotes(char c, int *sq, int *dq)
+{
+    if (c == '\'' && !(*dq))
+        *sq = !(*sq);
+	else if (c == '"' && !(*sq))
+        *dq = !(*dq);
+}
+
 // checks if there are wrong numbers of pipes or redirections
 int	check_pipe_redir(char *input)
 {
 	int	i;
+	int	sq;
+	int	dq;
 
+	sq = 0;
+	dq = 0;
 	i = 0;
 	while (input[i] != '\0')
 	{
-		if (input[i] == '|' && input[i + 1] == '|')
+		handle_quotes(input[i], &sq, &dq);
+		if (input[i] == '|' && input[i + 1] == '|' && !dq && !sq)
 			return (print_error(2), FALSE);
-		else if (input[i] == '>' && input[i + 1] == '>' && input[i + 2] == '>')
+		else if (input[i] == '>' && input[i + 1] == '>' && input[i + 2] == '>' && !dq && !sq)
 			return (print_error(3), FALSE);
-		else if (input[i] == '<' && input[i + 1] == '<' && input[i + 2] == '<')
+		else if (input[i] == '<' && input[i + 1] == '<' && input[i + 2] == '<' && !dq && !sq)
 			return (print_error(4), FALSE);
 		i++;
 	}
@@ -35,7 +49,6 @@ int	main(int argc, char **argv, char **env)
 {
 	t_minishell	*mini;
 	char		*input;
-
 
 	if (argc > 1)
 		return (1);
@@ -55,17 +68,15 @@ int	main(int argc, char **argv, char **env)
 		add_history(input);
 		if (!ft_strcmp(input, "exit"))
 		{
-			ft_putstr_fd("exit\n", 1);
+			ft_putstr_fd("exit\n", 2);
 			break ;
 		}
 		else if (!ft_strcmp(input, "\"\"") || !ft_strcmp(input, "\'\'"))
 			ft_putstr_fd("Command '' not found\n", 1); //$? 127 TO DO
 		else if (check_pipe_redir(mini->input)) //$? 2 TO DO
-		{
-			if (!quotes_tokenizer(add_spaces_tokenizer(mini->input, 0, 0, ft_strlen(mini->input))))
-				print_error(1);
-		}
-		//print_aux(mini);
+			mini->tokens = main_tokenizer(mini);
+		if (mini->tokens != NULL)
+			print_aux(mini);
 		free(mini->input);
 	}
 	free_program(mini);

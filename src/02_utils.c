@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 12:12:13 by eviscont          #+#    #+#             */
-/*   Updated: 2024/07/26 20:48:51 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/07/30 16:34:25 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,18 @@ void	print_error(int id)
 		ft_putstr_fd("syntax error near unexpected token `>'\n", 2);
 	if (id == 4)
 		ft_putstr_fd("syntax error near unexpected token `<'\n", 2);
+}
+
+int	ft_arraylen(char **array)
+{
+	int	i;
+	int	len;
+
+	len = 0;
+	i = 0;
+	while (array[i++] != NULL)
+		len++;
+	return (len);
 }
 
 int	ft_strcmp(char *s1, char *s2)
