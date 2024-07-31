@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 12:12:13 by eviscont          #+#    #+#             */
-/*   Updated: 2024/07/30 16:34:25 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/07/31 16:01:02 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,18 @@ void	print_error(int id)
 {
 	if (id == 1)
 		ft_putstr_fd("error: open quotes\n", 2);
-	if (id == 2)
+	else if (id == 2)
 		ft_putstr_fd("syntax error near unexpected token `|'\n", 2);
-	if (id == 3)
+	else if (id == 3)
 		ft_putstr_fd("syntax error near unexpected token `>'\n", 2);
-	if (id == 4)
+	else if (id == 4)
 		ft_putstr_fd("syntax error near unexpected token `<'\n", 2);
+	else if (id == 5)
+		ft_putstr_fd("syntax error near unexpected token `>>'\n", 2);
+	else if (id == 6)
+		ft_putstr_fd("syntax error near unexpected token `<<'\n", 2);
+	else if (id == 7)
+		ft_putstr_fd("Command '' not found\n", 2);
 }
 
 int	ft_arraylen(char **array)
