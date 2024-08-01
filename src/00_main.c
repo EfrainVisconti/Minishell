@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:14:11 by eviscont          #+#    #+#             */
-/*   Updated: 2024/07/31 16:01:41 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/01 17:53:14 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	handle_quotes(char c, int *sq, int *dq)
 		*dq = !(*dq);
 }
 
-// checks if there are wrong numbers of pipes or redirections
-// without spaces
+//checks if there are wrong numbers of consecutive pipes or redirections
+//but only without spaces
 int	check_pipe_redir(char *s, int i, int sq, int dq)
 {
 	while (s[i] != '\0')
@@ -47,40 +47,50 @@ int	check_pipe_redir(char *s, int i, int sq, int dq)
 	return (TRUE);
 }
 
-int	main(int argc, char **argv, char **env)
+//minishell loop
+void	init_minishell(t_minishell *mini)
 {
-	t_minishell	*mini;
-	char		*input;
+	char	*input;
 
-	if (argc > 1)
-		return (1);
-	(void)argv;
-	mini = (t_minishell *)malloc(sizeof(t_minishell));
-	if (!mini)
-		return (1);
-	mini->env = NULL;
-	set_env(env, mini);
-	set_bin_path(mini);
 	while (1)
 	{
 		input = readline("minishell:");
 		if (input == NULL)
-			return (1);
+			return ;
 		mini->input = ft_strdup(input);
 		add_history(input);
 		if (!ft_strcmp(input, "exit"))
 		{
 			ft_putstr_fd("exit\n", 2);
+			free(input);
 			break ;
 		}
 		else if (!ft_strcmp(input, "\"\"") || !ft_strcmp(input, "\'\'"))
 			print_error(7); //$? 127 TO DO
-		else if (check_pipe_redir(mini->input, 0, 0, 0)) //$? 2 TO DO
-			mini->tokens = main_tokenizer(mini);
-		if (mini->tokens != NULL)
-			print_aux(mini);
+		else if (!check_pipe_redir(mini->input, 0, 0, 0)) //$? 2 TO DO
+			break ;
+		// 	mini->tokens = main_tokenizer(mini);
+		// if (mini->tokens != NULL)
 		free(mini->input);
+		free(input);
+		print_aux(mini);
 	}
-	free_program(mini);
+}
+
+int	main(int argc, char **argv, char **env)
+{
+	t_minishell	mini;
+
+	if (argc > 1)
+		return (1);
+	(void)argv;
+	mini.env = NULL;
+	mini.bin_path = NULL;
+	mini.input = NULL;
+	mini.tokens = NULL;
+	set_env(env, &mini);
+	set_bin_path(&mini);
+	init_minishell(&mini);
+	free_main(&mini);
 	return (0);
 }

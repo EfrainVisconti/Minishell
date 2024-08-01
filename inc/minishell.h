@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:05:03 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/01 14:01:10 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/01 16:17:52 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,47 +46,50 @@ typedef struct s_minishell
 }					t_minishell;
 
 //main.c
-int			check_pipe_redir(char *input, int i, int sq, int dq);
-void		handle_quotes(char c, int *qs, int *qd);
+void	init_minishell(t_minishell *mini);
+int		check_pipe_redir(char *input, int i, int sq, int dq);
+void	handle_quotes(char c, int *qs, int *qd);
 
 //free.c
-void		free_program(t_minishell *mini);
-void		free_array(char **array);
-void		free_env(t_env *env);
+void	free_main(t_minishell *mini);
+void	free_array(char **array);
+void	free_env(t_env *env);
 
 //utils.c
-void		print_error(int id);
-int			ft_arraylen(char **array);
-int			ft_strcmp(char *s1, char *s2);
-char		*ft_strcpy(char	*s1, char *s2);
+void	print_error(int id);
+int		ft_arraylen(char **array);
+int		ft_strcmp(char *s1, char *s2);
+char	*ft_strcpy(char	*s1, char *s2);
 
 //environment
-void		set_env(char **env, t_minishell *mini);
-t_env		*new_env_node(char *name, char *content);
-void		set_bin_path(t_minishell *mini);
-t_env		*find_env_var(t_env **env_var, char *name);
+void	set_env(char **env, t_minishell *mini);
+t_env	*new_env_node(char *name, char *content);
+void	set_bin_path(t_minishell *mini);
+t_env	*find_env_var(t_env **env_var, char *name);
 
 //add_spaces_tokenizer
-char		*add_spaces_tokenizer(char *input, int i, int j, int len);
-int			add_spaces_aux(char *input, char *result, int i, int j);
+char	*add_spaces_tokenizer(char *input, int i, int j, int len);
+int		add_spaces_aux(char *input, char *result, int i, int j);
 
 //quotes_tokenizer
-char		**quotes_tokenizer(char *input);
-char		**quotes_tokenizer_aux(char **tokens, char	*s, int start, int end);
-int			count_tokens(char *s, int i, int tokens);
+char	**quotes_tokenizer(char *input);
+char	**quotes_tokenizer_aux(char **tokens, char	*s, int start, int end);
+int		count_tokens(char *s, int i, int tokens);
 
 //expand_vars
-char		**expand_vars(char **tokens, t_env *env);
-char		*creates_new(char *token, t_env *env);
-int			check_expand_needed(char *token);
-char		*var_name_exp(char *s);
-char		*from_beginning_to_dollar(char	*s);
-char		*from_var_name_to_end(char *s);
+char	**expand_vars(char **tokens, t_env *env);
+char	*creates_new(char *token, t_env *env);
+int		check_expand_needed(char *token);
+
+//expand_vars_utils
+char	*var_name_exp(char *s);
+char	*from_beginning_to_dollar(char	*s);
+char	*from_var_name_to_end(char *s);
 
 //main_tokenizer
-char		**main_tokenizer(t_minishell *mini);
+char	**main_tokenizer(t_minishell *mini);
 
 //print_aux
-void		print_aux(t_minishell *mini);
+void	print_aux(t_minishell *mini);
 
 #endif
