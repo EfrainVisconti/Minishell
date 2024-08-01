@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:05:03 by eviscont          #+#    #+#             */
-/*   Updated: 2024/07/31 18:05:54 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/01 14:01:10 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # include <sys/types.h>
 # include "../libs/libft/libft.h"
-#include <readline/readline.h>
-#include <readline/history.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 # define FALSE 0
 # define TRUE 1
@@ -27,8 +27,6 @@
 # define HEREDOC 4	//operator '<<'
 # define APPEND 5	//operator '>>'
 # define PIPE 6		//operator '|'
-
-
 
 //linked list for enviroment variables
 typedef struct s_env

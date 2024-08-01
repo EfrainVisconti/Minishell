@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 12:12:13 by eviscont          #+#    #+#             */
-/*   Updated: 2024/07/31 16:01:02 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/01 13:57:45 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	ft_strcmp(char *s1, char *s2)
 
 char	*ft_strcpy(char	*s1, char *s2)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s2[i] != '\0')

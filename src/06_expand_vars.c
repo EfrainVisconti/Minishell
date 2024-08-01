@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:56:05 by eviscont          #+#    #+#             */
-/*   Updated: 2024/07/31 18:28:51 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/01 15:16:52 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,60 +17,71 @@
 
 char	*from_var_name_to_end(char *s)
 {
-	int	i;
+	int		i;
+	char	*tmp;
 
 	i = 0;
-	while (s[i])
+	tmp = ft_strdup(s);
+	while (tmp[i])
 	{
-		if (s[i] == '$')
+		if (tmp[i] == '$')
 		{
 			i++;
-			while (s[i] && s[i] != ' ' && s[i] != '\n' && s[i] != '\t')
+			while (tmp[i] && s[i] != ' ' && tmp[i] != '\n' && tmp[i] != '\t'
+				&& tmp[i] != '\'' && tmp[i] != '"')
 				i++;
-			return (&s[i]);
+			return (&tmp[i]);
 		}
 		i++;
 	}
+	free(tmp);
 	return (NULL);
 }
 
 char	*from_beginning_to_dollar(char	*s)
 {
-	int	i;
+	int		i;
+	char	*tmp;
 
 	i = 0;
-	while (s[i])
+	tmp = ft_strdup(s);
+	while (tmp[i])
 	{
-		if (s[i] == '$')
+		if (tmp[i] == '$')
 		{
-			s[i] = '\0';
-			return (s);
+			tmp[i] = '\0';
+			return (&tmp[0]);
 		}
 		i++;
 	}
+	free(tmp);
 	return (NULL);
 }
 
 char	*var_name_exp(char *s)
 {
-	int	start;
-	int	i;
+	int		start;
+	int		i;
+	char	*tmp;
 
 	start = 0;
 	i = 0;
-	while (s[i])
+	tmp = ft_strdup(s);
+	while (tmp[i])
 	{
-		if (s[i] == '$')
+		if (tmp[i] == '$')
 		{
 			i++;
 			start = i;
-			while (s[i] && s[i] != ' ' && s[i] != '\n' && s[i] != '\t')
+			while (tmp[i] && tmp[i] != ' ' && tmp[i] != '\n' && tmp[i] != '\t'
+				&& tmp[i] != '\'' && tmp[i] != '"')
 				i++;
-			s[i] = '\0';
-			return (&s[start]);
+			tmp[i] = '\0';
+			return (&tmp[start]);
 		}
 		i++;
 	}
+	free(tmp);
 	return (NULL);
 }
 
@@ -86,7 +97,7 @@ int	check_expand_needed(char *token)
 	while (token[i] != '\0')
 	{
 		handle_quotes(token[i], &qs, &qd);
-		if (!qd && token[i] == '$' && !ft_strchr(" \t\n\0", token[i + 1]))
+		if (!qs && token[i] == '$' && !ft_strchr(" \t\n\0", token[i + 1]))
 			return (TRUE);
 		i++;
 	}
@@ -97,19 +108,23 @@ char	*creates_new(char *token, t_env *env)
 {
 	char	*name;
 	char	*first;
+	char	*second;
 	t_env	*var;
 
 	if (check_expand_needed(token) == TRUE)
 	{
 		name = var_name_exp(token);
 		var = find_env_var(&env, name);
+		second = from_var_name_to_end(token);
 		first = from_beginning_to_dollar(token);
+		ft_printf("%s\n", token);
 		ft_printf("%s\n", first);
 		ft_printf("%s\n", name);
+		ft_printf("%s\n", second);
 		if (var)
-			return (ft_strjoin(first, var->content));
+			return (ft_strjoin(ft_strjoin(first, var->content, 2), second, 2));
 		else
-			return (ft_strdup(first));
+			return (ft_strjoin(first, second, 2));
 	}
 	else
 		token = ft_strdup(token);
