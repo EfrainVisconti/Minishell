@@ -6,13 +6,13 @@
 #    By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/14 16:41:04 by eviscont          #+#    #+#              #
-#    Updated: 2024/07/17 11:17:48 by eviscont         ###   ########.fr        #
+#    Updated: 2024/08/02 14:37:18 by eviscont         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= libft.a
 
-CFLAGS		= -c -Wall -Wextra -Werror
+CFLAGS		= -c -Wall -Wextra -Werror -g3
 
 SRCS		= ft_memset.c \
 			ft_bzero.c \

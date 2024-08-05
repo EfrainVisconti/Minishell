@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:56:05 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/01 15:58:24 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/05 20:39:41 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ char	*creates_new(char *token, t_env *env)
 	{
 		name = var_name_exp(token);
 		var = find_env_var(&env, name);
+		free(name);
 		second = from_var_name_to_end(token);
 		first = from_beginning_to_dollar(token);
 		ft_printf("%s\n", token);
@@ -52,9 +53,9 @@ char	*creates_new(char *token, t_env *env)
 		ft_printf("%s\n", name);
 		ft_printf("%s\n", second);
 		if (var)
-			return (ft_strjoin(ft_strjoin(first, var->content, 2), second, 2));
+			return (ft_strjoin(ft_strjoin(first, var->content, 3), second, 15));
 		else
-			return (ft_strjoin(first, second, 2));
+			return (ft_strjoin(first, second, 15));
 	}
 	else
 		token = ft_strdup(token);
@@ -78,5 +79,6 @@ char	**expand_vars(char **tokens, t_env *env)
 		i++;
 	}
 	new[arraylen] = NULL;
+	free_array(tokens);
 	return (new);
 }

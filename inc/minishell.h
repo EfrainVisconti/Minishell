@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:05:03 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/01 16:17:52 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/05 21:09:19 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,11 @@ char	*from_beginning_to_dollar(char	*s);
 char	*from_var_name_to_end(char *s);
 
 //main_tokenizer
-char	**main_tokenizer(t_minishell *mini);
+char	**set_tokens(t_minishell *mini, char *input);
+void	remove_quotes_aux(char *s);
+int		has_quotes(char	*str);
+void	remove_quotes(char **tokens);
+int		look_for_expansion(char **tokens);
 
 //print_aux
 void	print_aux(t_minishell *mini);

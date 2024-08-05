@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:14:11 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/01 17:53:14 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/05 21:11:06 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int	check_pipe_redir(char *s, int i, int sq, int dq)
 		else if (s[i] == '<' && s[i + 1] == '<' && s[i + 2] == '<'
 			&& s[i + 3] == '<' && !dq && !sq)
 			return (print_error(6), FALSE);
+		else if (s[i] == '<' && s[i + 1] == '|' && !dq && !sq)
+			return (print_error(2), FALSE);
 		i++;
 	}
 	return (TRUE);
@@ -55,9 +57,6 @@ void	init_minishell(t_minishell *mini)
 	while (1)
 	{
 		input = readline("minishell:");
-		if (input == NULL)
-			return ;
-		mini->input = ft_strdup(input);
 		add_history(input);
 		if (!ft_strcmp(input, "exit"))
 		{
@@ -67,12 +66,10 @@ void	init_minishell(t_minishell *mini)
 		}
 		else if (!ft_strcmp(input, "\"\"") || !ft_strcmp(input, "\'\'"))
 			print_error(7); //$? 127 TO DO
-		else if (!check_pipe_redir(mini->input, 0, 0, 0)) //$? 2 TO DO
-			break ;
-		// 	mini->tokens = main_tokenizer(mini);
-		// if (mini->tokens != NULL)
-		free(mini->input);
-		free(input);
+		else if (check_pipe_redir(input, 0, 0, 0)) //$? 2 TO DO
+		{
+			mini->tokens = set_tokens(mini, input);
+		}
 		print_aux(mini);
 	}
 }

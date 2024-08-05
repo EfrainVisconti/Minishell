@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 12:07:14 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/01 17:06:34 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/05 14:23:28 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,4 @@ void	free_main(t_minishell *mini)
 	free_array(mini->tokens);
 	free_array(mini->bin_path);
 	free_env(mini->env);
-	free(mini->input);
 }

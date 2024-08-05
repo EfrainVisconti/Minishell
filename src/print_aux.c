@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 21:14:27 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/01 17:34:10 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/05 14:45:15 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,18 @@ void	print_aux(t_minishell *mini)
 		i++;
 	}
 	ft_printf("--------------------------------------------------\n");
-	ft_printf("INPUT: %s\n", auxm->input);
+	if (auxm->input != NULL)
+		ft_printf("INPUT: %s\n", auxm->input);
+	else
+		ft_printf("INPUT NULL\n");
 	ft_printf("--------------------------------------------------\n");
 	i = 0;
-	// while (mini->tokens[i] != NULL)
-	// {
-	// 	ft_printf("TOKEN[%d]: %s\n", i, mini->tokens[i]);
-	// 	i++;
-	// }
+	if (mini->tokens != NULL)
+	{
+		while (mini->tokens[i] != NULL)
+		{
+			ft_printf("TOKEN[%d]: %s\n", i, mini->tokens[i]);
+			i++;
+		}
+	}
 }
