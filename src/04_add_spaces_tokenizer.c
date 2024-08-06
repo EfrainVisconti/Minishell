@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 21:06:45 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/01 16:22:51 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/06 14:08:53 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,12 @@ char	*add_spaces_tokenizer(char *input, int i, int j, int len)
 
 	sq = 0;
 	dq = 0;
-	new = malloc(sizeof(char) * (len * 2));
+	new = NULL;
+	if (len > 0)
+		new = malloc(sizeof(char) * (len * 2));
 	if (!new)
 		return (NULL);
-	while (i < len)
+	while (++i < len)
 	{
 		handle_quotes(input[i], &sq, &dq);
 		if (!sq && !dq && ft_strchr("|<>", input[i]))
@@ -48,7 +50,6 @@ char	*add_spaces_tokenizer(char *input, int i, int j, int len)
 		}
 		else
 			new[j++] = input[i];
-		i++;
 	}
 	new[j] = '\0';
 	return (new);

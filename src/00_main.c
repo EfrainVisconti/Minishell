@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:14:11 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/05 21:11:06 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/06 16:31:48 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,19 +58,23 @@ void	init_minishell(t_minishell *mini)
 	{
 		input = readline("minishell:");
 		add_history(input);
+		mini->input = ft_strdup(input);
 		if (!ft_strcmp(input, "exit"))
 		{
 			ft_putstr_fd("exit\n", 2);
 			free(input);
+			free(mini->input);
 			break ;
 		}
-		else if (!ft_strcmp(input, "\"\"") || !ft_strcmp(input, "\'\'"))
+		if (!ft_strcmp(input, "\"\"") || !ft_strcmp(input, "\'\'"))
 			print_error(7); //$? 127 TO DO
-		else if (check_pipe_redir(input, 0, 0, 0)) //$? 2 TO DO
+		else if (check_pipe_redir(input, 0, 0, 0) == TRUE) //$? 2 TO DO
 		{
 			mini->tokens = set_tokens(mini, input);
 		}
 		print_aux(mini);
+		free(input);
+		free(mini->input);
 	}
 }
 

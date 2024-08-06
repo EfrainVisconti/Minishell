@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 19:44:43 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/05 21:08:57 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/06 13:59:11 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,23 +89,21 @@ char	**set_tokens(t_minishell *mini, char *input)
 	char	*input_spaces;
 	int		len;
 
+	tok = NULL;
 	len = ft_strlen(input);
-	if (input != NULL && len > 0)
-		input_spaces = add_spaces_tokenizer(input, 0, 0, len);
+	if (input != NULL)
+		input_spaces = add_spaces_tokenizer(input, -1, 0, len);
 	if (input_spaces != NULL)
 	{
 		tok = quotes_tokenizer(input_spaces);
 		free(input_spaces);
 		if (tok == NULL)
+			return (print_error(1), NULL);
+		if (look_for_expansion(tok) == TRUE)
 		{
-			print_error(1);
-			return (NULL);
+			tok = expand_vars(tok, mini->env);
 		}
+		remove_quotes(tok);
 	}
-	if (look_for_expansion(tok) == TRUE)
-	{
-		tok = expand_vars(tok, mini->env);
-	}
-	remove_quotes(tok);
 	return (tok);
 }
