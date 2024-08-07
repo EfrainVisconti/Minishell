@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:56:05 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/05 20:39:41 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/07 15:11:26 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,13 @@ int	check_expand_needed(char *token)
 	while (token[i] != '\0')
 	{
 		handle_quotes(token[i], &qs, &qd);
-		if (!qs && token[i] == '$' && !ft_strchr(" \t\n\0", token[i + 1]))
-			return (TRUE);
+		if (!qs && token[i] == '$')
+		{
+			if (token[i + 1] == '"')
+				return (FALSE);
+			else if (!ft_strchr(" \t\n", token[i + 1]))
+				return (TRUE);
+		}
 		i++;
 	}
 	return (FALSE);
@@ -38,7 +43,7 @@ char	*creates_new(char *token, t_env *env)
 {
 	char	*name;
 	char	*first;
-	char	*second;
+	char	*sec;
 	t_env	*var;
 
 	if (check_expand_needed(token) == TRUE)
@@ -46,16 +51,12 @@ char	*creates_new(char *token, t_env *env)
 		name = var_name_exp(token);
 		var = find_env_var(&env, name);
 		free(name);
-		second = from_var_name_to_end(token);
+		sec = from_var_name_to_end(token);
 		first = from_beginning_to_dollar(token);
-		ft_printf("%s\n", token);
-		ft_printf("%s\n", first);
-		ft_printf("%s\n", name);
-		ft_printf("%s\n", second);
 		if (var)
-			return (ft_strjoin(ft_strjoin(first, var->content, 3), second, 15));
+			return (ft_strjoin(ft_strjoin(first, var->content, 3), sec, 15));
 		else
-			return (ft_strjoin(first, second, 15));
+			return (ft_strjoin(first, sec, 15));
 	}
 	else
 		token = ft_strdup(token);
@@ -70,7 +71,7 @@ char	**expand_vars(char **tokens, t_env *env)
 
 	i = 0;
 	arraylen = ft_arraylen(tokens);
-	new = malloc(sizeof(char *) * arraylen + 1);
+	new = malloc(sizeof(char *) * (arraylen + 1));
 	if (!new)
 		return (NULL);
 	while (tokens[i] != NULL)
@@ -78,7 +79,7 @@ char	**expand_vars(char **tokens, t_env *env)
 		new[i] = creates_new(tokens[i], env);
 		i++;
 	}
-	new[arraylen] = NULL;
+	new[i] = NULL;
 	free_array(tokens);
 	return (new);
 }

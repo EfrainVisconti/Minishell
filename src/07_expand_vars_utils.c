@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   07_expand_vars2.c                                  :+:      :+:    :+:   */
+/*   07_expand_vars_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 15:54:39 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/01 16:01:06 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/07 14:37:02 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,26 @@
 //gets the remaining part after expanding the variable
 char	*from_var_name_to_end(char *s)
 {
-	int		i;
-	char	*tmp;
+	int	i;
+	int	start;
+	int	len;
 
+	len = ft_strlen(s);
+	start = 0;
 	i = 0;
-	tmp = ft_strdup(s);
-	while (tmp[i])
+	while (s[i])
 	{
-		if (tmp[i] == '$')
+		if (s[i] == '$')
 		{
 			i++;
-			while (tmp[i] && s[i] != ' ' && tmp[i] != '\n' && tmp[i] != '\t'
-				&& tmp[i] != '\'' && tmp[i] != '"')
+			while (s[i] && s[i] != ' ' && s[i] != '\n' && s[i] != '\t'
+				&& s[i] != '\'' && s[i] != '"')
 				i++;
-			return (&tmp[i]);
+			start = i;
+			return(ft_substr(s, start, len));
 		}
 		i++;
 	}
-	free(tmp);
 	return (NULL);
 }
 
@@ -62,25 +64,20 @@ char	*var_name_exp(char *s)
 {
 	int		start;
 	int		i;
-	char	*tmp;
 
 	start = 0;
 	i = 0;
-	tmp = ft_strdup(s);
-	while (tmp[i])
+	while (s[i])
 	{
-		if (tmp[i] == '$')
+		if (s[i] == '$')
 		{
-			i++;
-			start = i;
-			while (tmp[i] && tmp[i] != ' ' && tmp[i] != '\n' && tmp[i] != '\t'
-				&& tmp[i] != '\'' && tmp[i] != '"')
+			start = i + 1;
+			while (s[i] && s[i] != ' ' && s[i] != '\n' && s[i] != '\t'
+				&& s[i] != '\'' && s[i] != '"')
 				i++;
-			tmp[i] = '\0';
-			return (&tmp[start]);
+			return(ft_substr(s, start, i - start));
 		}
 		i++;
 	}
-	free(tmp);
 	return (NULL);
 }

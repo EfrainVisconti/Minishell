@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 12:12:13 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/01 13:57:45 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/07 13:28:25 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ int	ft_arraylen(char **array)
 	int	len;
 
 	len = 0;
-	i = 0;
-	while (array[i++] != NULL)
+	i = -1;
+	while (array[++i] != NULL)
 		len++;
 	return (len);
 }

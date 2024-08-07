@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 21:14:27 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/05 14:45:15 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/07 11:55:38 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,14 @@
 
 void	print_aux(t_minishell *mini)
 {
-	t_minishell	*auxm;
-	t_env		*auxe;
 	int			i;
 
 	i = 0;
-	auxm = mini;
-	auxe = mini->env;
-	while (auxe)
-	{
-		ft_printf("ENV: %s=%s\n", auxe->content, auxe->name);
-		auxe = auxe->next;
-	}
-	ft_printf("--------------------------------------------------\n");
-	while (auxm->bin_path[i])
-	{
-		ft_printf("PATH: %s\n", auxm->bin_path[i]);
-		i++;
-	}
-	ft_printf("--------------------------------------------------\n");
-	if (auxm->input != NULL)
-		ft_printf("INPUT: %s\n", auxm->input);
+	if (mini->input != NULL)
+		ft_printf("INPUT: %s\n", mini->input);
 	else
 		ft_printf("INPUT NULL\n");
 	ft_printf("--------------------------------------------------\n");
-	i = 0;
 	if (mini->tokens != NULL)
 	{
 		while (mini->tokens[i] != NULL)
@@ -47,4 +30,6 @@ void	print_aux(t_minishell *mini)
 			i++;
 		}
 	}
+	else
+		ft_printf("TOKENS NULL\n");
 }
