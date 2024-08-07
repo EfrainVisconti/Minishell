@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 12:53:07 by eviscont          #+#    #+#             */
-/*   Updated: 2024/02/02 12:50:42 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/07 17:59:53 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ char	*ft_strtrim(char const *s1, char const *set)
 	start = 0;
 	i = -1;
 	if (set[start] == 0 || s1[start] == 0)
-		return (ft_strdup(s1));
+		return (ft_strdup(s1, 0));
 	end = ft_strlen(s1) - 1;
 	while (s1[start] && ft_strchr(set, s1[start]))
 		start++;
 	if (s1[start] == '\0')
-		return (ft_strdup(&s1[start]));
+		return (ft_strdup(&s1[start], 0));
 	while (ft_strchr(set, s1[end]))
 		end--;
 	res = (char *)malloc(end - start + 2);

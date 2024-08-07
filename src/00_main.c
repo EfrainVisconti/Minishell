@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:14:11 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/07 12:07:31 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/07 18:04:16 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,17 +64,19 @@ void	init_minishell(t_minishell *mini)
 			free(input);
 			break ;
 		}
-		mini->input = ft_strdup(input);
+		mini->input = ft_strdup(input, 0);
 		if (!ft_strcmp(input, "\"\"") || !ft_strcmp(input, "\'\'"))
-			print_error(7); //$? 127 TO DO
+		{
+			print_error(7);//$? 127 TO DO
+		}
 		else if (check_pipe_redir(input, 0, 0, 0) == TRUE) //$? 2 TO DO
 		{
 			mini->tokens = set_tokens(mini, input);
+			print_aux(mini);
+			free_array(mini->tokens);
 		}
-		print_aux(mini);
-		free(input);
-		free_array(mini->tokens);
-		free(mini->input);
+			free(input);
+			free(mini->input);
 	}
 }
 

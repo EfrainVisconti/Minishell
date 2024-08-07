@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   03_enviroment.c                                    :+:      :+:    :+:   */
+/*   03_environment.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 18:34:13 by eviscont          #+#    #+#             */
-/*   Updated: 2024/07/25 18:35:42 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/07 18:02:39 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ t_env	*new_env_node(char *name, char *content)
 	new_node = (t_env *)malloc(sizeof(t_env));
 	if (!new_node)
 		return (NULL);
-	new_node->name = ft_strdup(name);
-	new_node->content = ft_strdup(content);
+	new_node->name = ft_strdup(name, 0);
+	new_node->content = ft_strdup(content, 0);
 	new_node->next = NULL;
 	return (new_node);
 }

@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 19:44:43 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/07 11:36:14 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/07 17:53:00 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,14 @@ void	remove_quotes(char **tokens)
 //checks if there is at least one expansion
 int	look_for_expansion(char **tokens)
 {
-	int		i;
+	int	i;
+	int	nbr;
 
 	i = 0;
+	nbr = 0;
 	while (tokens[i] != NULL)
 	{
-		if (check_expand_needed(tokens[i]) == TRUE)
+		if (check_expand_needed(tokens[i], &nbr))
 			return (TRUE);
 		i++;
 	}

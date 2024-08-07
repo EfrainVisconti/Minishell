@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 16:20:52 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/01 14:45:14 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/07 17:57:42 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		ft_memcmp(const void *ptr1, const void *ptr2, size_t n);
 char	*ft_strnstr(const char *big, const char *little, size_t len);
 int		ft_atoi(const char *str);
 void	*ft_calloc(size_t count, size_t size);
-char	*ft_strdup(const char *s);
+char	*ft_strdup(const char *s, int mode);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(char const *s1, char const *s2, int mode);
 char	*ft_strtrim(char const *s1, char const *set);

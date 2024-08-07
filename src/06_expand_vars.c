@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:56:05 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/07 15:11:26 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/07 19:15:54 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 //TO DO AÑADIR VARIABLE DE ENTORNO ? LLAMADA CON $? QUE ALMACENA SALIDA DE ERROR
 //DEL ULTIMO COMANDO EJECUTADO
 
-int	check_expand_needed(char *token)
+int	check_expand_needed(char *token, int *nbr)
 {
 	int	i;
 	int	qs;
@@ -29,37 +29,54 @@ int	check_expand_needed(char *token)
 		handle_quotes(token[i], &qs, &qd);
 		if (!qs && token[i] == '$')
 		{
-			if (token[i + 1] == '"')
-				return (FALSE);
+			if (token[i + 1] == '"' || token[i + 1] == '\'')
+				i++;
 			else if (!ft_strchr(" \t\n", token[i + 1]))
-				return (TRUE);
+				(*nbr)++;
 		}
 		i++;
 	}
-	return (FALSE);
+	return (*nbr);
+}
+
+static char	*creates_new_aux(char *token, t_env *env, t_env *var, int *nbr)
+{
+	char	*sec;
+	char	*first;
+	char	*new;
+	char	*name;
+
+	new = ft_strdup(token, 0);
+	while (*nbr > 0)
+	{
+		name = var_name_exp(new);
+		var = find_env_var(&env, name);
+		free(name);
+		sec = from_var_name_to_end(new);
+		first = from_beginning_to_dollar(new);
+		free(new);
+		if (var)
+			new = ft_strdup(ft_strjoin(ft_strjoin(first, var->content, 3), sec, 15), 1);
+		else
+			new = ft_strdup(ft_strjoin(first, sec, 15), 1);
+		(*nbr)--;
+	}
+	return (new);
 }
 
 char	*creates_new(char *token, t_env *env)
 {
-	char	*name;
-	char	*first;
-	char	*sec;
+	int		nbr;
 	t_env	*var;
 
-	if (check_expand_needed(token) == TRUE)
+	nbr = 0;
+	var = NULL;
+	if (check_expand_needed(token, &nbr))
 	{
-		name = var_name_exp(token);
-		var = find_env_var(&env, name);
-		free(name);
-		sec = from_var_name_to_end(token);
-		first = from_beginning_to_dollar(token);
-		if (var)
-			return (ft_strjoin(ft_strjoin(first, var->content, 3), sec, 15));
-		else
-			return (ft_strjoin(first, sec, 15));
+			token = creates_new_aux(token, env, var, &nbr);
 	}
 	else
-		token = ft_strdup(token);
+	 	token = ft_strdup(token, 0);
 	return (token);
 }
 

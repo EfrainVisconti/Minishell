@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 15:54:39 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/07 14:37:02 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/07 18:03:08 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*from_var_name_to_end(char *s)
 				&& s[i] != '\'' && s[i] != '"')
 				i++;
 			start = i;
-			return(ft_substr(s, start, len));
+			return (ft_substr(s, start, len));
 		}
 		i++;
 	}
@@ -45,7 +45,7 @@ char	*from_beginning_to_dollar(char	*s)
 	char	*tmp;
 
 	i = 0;
-	tmp = ft_strdup(s);
+	tmp = ft_strdup(s, 0);
 	while (tmp[i])
 	{
 		if (tmp[i] == '$')
@@ -75,7 +75,7 @@ char	*var_name_exp(char *s)
 			while (s[i] && s[i] != ' ' && s[i] != '\n' && s[i] != '\t'
 				&& s[i] != '\'' && s[i] != '"')
 				i++;
-			return(ft_substr(s, start, i - start));
+			return (ft_substr(s, start, i - start));
 		}
 		i++;
 	}

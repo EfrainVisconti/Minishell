@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:05:03 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/05 21:09:19 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/07 17:39:03 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int		count_tokens(char *s, int i, int tokens);
 //expand_vars
 char	**expand_vars(char **tokens, t_env *env);
 char	*creates_new(char *token, t_env *env);
-int		check_expand_needed(char *token);
+int		check_expand_needed(char *token, int *nbr);
 
 //expand_vars_utils
 char	*var_name_exp(char *s);

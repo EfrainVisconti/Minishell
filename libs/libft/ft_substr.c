@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 12:59:48 by eviscont          #+#    #+#             */
-/*   Updated: 2024/02/02 12:50:31 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/07 17:59:04 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	if (s == 0)
 		return (0);
 	if (ft_strlen(s) < start)
-		return (ft_strdup(""));
+		return (ft_strdup("", 0));
 	if (len > ft_strlen(s) - start)
 		len = ft_strlen(s) - start;
 	sb = (char *)malloc(len + 1);

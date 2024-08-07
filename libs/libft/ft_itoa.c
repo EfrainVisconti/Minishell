@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:13:57 by eviscont          #+#    #+#             */
-/*   Updated: 2024/02/02 12:54:17 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/07 18:00:23 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*ft_itoa(int n)
 	int		len;
 
 	if (n == 0)
-		return (ft_strdup("0"));
+		return (ft_strdup("0", 0));
 	num = n;
 	len = numblen(num);
 	str = malloc((sizeof(char)) * (len + 1));
