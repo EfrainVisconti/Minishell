@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:56:05 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/07 19:15:54 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/07 19:32:59 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	check_expand_needed(char *token, int *nbr)
 		handle_quotes(token[i], &qs, &qd);
 		if (!qs && token[i] == '$')
 		{
-			if (token[i + 1] == '"' || token[i + 1] == '\'')
+			if ((token[i + 1] == '"' || token[i + 1] == '\'') && ft_strchr(" \t\n", token[i + 2]))
 				i++;
 			else if (!ft_strchr(" \t\n", token[i + 1]))
 				(*nbr)++;
