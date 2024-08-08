@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:14:11 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/07 18:04:16 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/08 14:36:27 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ int	check_pipe_redir(char *s, int i, int sq, int dq)
 			return (print_error(6), FALSE);
 		else if (s[i] == '<' && s[i + 1] == '|' && !dq && !sq)
 			return (print_error(2), FALSE);
+		else if (s[i] == '>' && s[i + 1] == '|' && !dq && !sq)
+			return (print_error(2), FALSE);
 		i++;
 	}
 	return (TRUE);
@@ -73,6 +75,7 @@ void	init_minishell(t_minishell *mini)
 		{
 			mini->tokens = set_tokens(mini, input);
 			print_aux(mini);
+			pipes_handler(mini);
 			free_array(mini->tokens);
 		}
 			free(input);
@@ -88,6 +91,7 @@ int	main(int argc, char **argv, char **env)
 		return (1);
 	(void)argv;
 	ft_memset(&mini, 0, sizeof(mini));
+	mini.argenv = env;
 	set_env(env, &mini);
 	set_bin_path(&mini);
 	init_minishell(&mini);

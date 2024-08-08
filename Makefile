@@ -6,7 +6,7 @@
 #    By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/10 13:58:33 by eviscont          #+#    #+#              #
-#    Updated: 2024/08/01 17:00:14 by eviscont         ###   ########.fr        #
+#    Updated: 2024/08/08 12:33:16 by eviscont         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ NAME		=	minishell
 #Ficheros
 SRC_FILES	=	00_main 01_free 02_utils 03_environment 05_quotes_tokenizer \
 				06_expand_vars 08_main_tokenizer 04_add_spaces_tokenizer \
-				07_expand_vars_utils print_aux
+				07_expand_vars_utils 09_set_execution_nodes print_aux
 SRC			=	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ			=	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 LIBFT		=	libs/libft

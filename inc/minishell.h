@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:05:03 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/07 17:39:03 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/08 14:20:35 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 
 # define FALSE 0
 # define TRUE 1
+# define ERROR -1
 
 # define OTHER 1
 # define RED_FROM 2	//operator '<'
@@ -33,16 +34,30 @@ typedef struct s_env
 {
 	char			*name;
 	char			*content;
+	int				is_env;
 	struct s_env	*next;
 }					t_env;
+
+//struct for nodes resulting from separation by pipes
+typedef struct s_node
+{
+	char	**full_cmd;
+	char	*full_path;
+	int		infile;
+	int		outfile;
+	int		is_builtin;
+}			t_node;
 
 //main struct for the program
 typedef struct s_minishell
 {
 	t_env		*env;
+	char		**argenv;
 	char		**bin_path;
 	char		*input;
 	char		**tokens;
+	int			pid;
+	t_node		**nodes;
 }					t_minishell;
 
 //main.c
@@ -92,6 +107,10 @@ void	remove_quotes_aux(char *s);
 int		has_quotes(char	*str);
 void	remove_quotes(char **tokens);
 int		look_for_expansion(char **tokens);
+
+//set_execution_nodes
+void	pipes_handler(t_minishell *mini);
+int		count_pipes(char **tokens);
 
 //print_aux
 void	print_aux(t_minishell *mini);
