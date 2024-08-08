@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 12:12:13 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/07 13:28:25 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/08 17:24:08 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ void	print_error(int id)
 		ft_putstr_fd("syntax error near unexpected token `<<'\n", 2);
 	else if (id == 7)
 		ft_putstr_fd("Command '' not found\n", 2);
+	else if (id == 8)
+		ft_putstr_fd("syntax error near unexpected token `REDIR'\n", 2);
+	else if (id == 9)
+		ft_putstr_fd("syntax error near unexpected token `newline'\n", 2);
 }
 
 int	ft_arraylen(char **array)

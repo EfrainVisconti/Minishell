@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:05:03 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/08 14:20:35 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/08 18:53:25 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,11 @@ void	remove_quotes(char **tokens);
 int		look_for_expansion(char **tokens);
 
 //set_execution_nodes
-void	pipes_handler(t_minishell *mini);
-int		count_pipes(char **tokens);
+void	set_execution_nodes(t_minishell *mini);
+t_node	**create_exec_nodes(t_minishell *mini, int nbr);
+t_node	**create_exec_nodes_aux(t_minishell *mini);
+int		pipes_handler(char **tokens);
+int		check_wrong_redir(char **tok);
 
 //print_aux
 void	print_aux(t_minishell *mini);

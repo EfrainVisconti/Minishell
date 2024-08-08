@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:14:11 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/08 14:36:27 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/08 18:05:39 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ int	check_pipe_redir(char *s, int i, int sq, int dq)
 		else if (s[i] == '>' && (s[i + 1] == '<' || (s[i + 1] == '>'
 					&& s[i + 2] == '>' && s[i + 3] != '>')) && !dq && !sq)
 			return (print_error(3), FALSE);
-		else if (s[i] == '<' && s[i + 1] == '<' && s[i + 2] == '<'
-			&& s[i + 3] != '<' && !dq && !sq)
+		else if (s[i] == '<' && (s[i + 1] == '>' || (s[i + 1] == '<'
+					&& s[i + 2] == '<' && s[i + 3] != '<')) && !dq && !sq)
 			return (print_error(4), FALSE);
 		else if (s[i] == '>' && s[i + 1] == '>' && s[i + 2] == '>'
 			&& s[i + 3] == '>' && !dq && !sq)
@@ -75,11 +75,12 @@ void	init_minishell(t_minishell *mini)
 		{
 			mini->tokens = set_tokens(mini, input);
 			print_aux(mini);
-			pipes_handler(mini);
+			if (mini->tokens)
+				set_execution_nodes(mini);
 			free_array(mini->tokens);
 		}
-			free(input);
-			free(mini->input);
+		free(input);
+		free(mini->input);
 	}
 }
 
