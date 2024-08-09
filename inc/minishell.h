@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
+/*   By: usuario <usuario@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:05:03 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/08 18:53:25 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/09 15:28:13 by usuario          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int		look_for_expansion(char **tokens);
 //set_execution_nodes
 void	set_execution_nodes(t_minishell *mini);
 t_node	**create_exec_nodes(t_minishell *mini, int nbr);
-t_node	**create_exec_nodes_aux(t_minishell *mini);
+t_node	*create_exec_nodes_aux(t_minishell *mini);
 int		pipes_handler(char **tokens);
 int		check_wrong_redir(char **tok);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   01_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
+/*   By: usuario <usuario@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 12:07:14 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/07 15:52:44 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/09 15:41:23 by usuario          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	free_array(char **array)
 		i++;
 	}
 	free(array);
-	array = NULL;
 }
 
 //free program from main exit fuction

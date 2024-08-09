@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   03_environment.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
+/*   By: usuario <usuario@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 18:34:13 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/08 15:52:41 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/09 15:29:27 by usuario          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,14 @@ t_env	*new_env_node(char *name, char *content)
 	new_node = (t_env *)malloc(sizeof(t_env));
 	if (!new_node)
 		return (NULL);
-	new_node->name = ft_strdup(name, 0);
-	new_node->content = ft_strdup(content, 0);
+	if (name)
+		new_node->name = ft_strdup(name, 0);
+	else
+		new_node->name = ft_strdup("", 0);
+	if (content)
+		new_node->content = ft_strdup(content, 0);
+	else
+		new_node->content = ft_strdup("", 0);
 	new_node->is_env = TRUE;
 	new_node->next = NULL;
 	return (new_node);
@@ -64,11 +70,6 @@ void	set_env(char **env, t_minishell *mini)
 	while (*env != NULL)
 	{
 		split_env = ft_split(*env, '=');
-		if (!split_env[0] || !split_env[1])
-		{
-			free_array(split_env);
-			break ;
-		}
 		new_node = new_env_node(split_env[0], split_env[1]);
 		if (!mini->env)
 			mini->env = new_node;
