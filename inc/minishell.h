@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: usuario <usuario@student.42.fr>            +#+  +:+       +#+        */
+/*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:05:03 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/09 15:28:13 by usuario          ###   ########.fr       */
+/*   Updated: 2024/08/10 19:12:54 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,13 @@ t_env	*new_env_node(char *name, char *content);
 void	set_bin_path(t_minishell *mini);
 t_env	*find_env_var(t_env **env_var, char *name);
 
+//main_tokenizer
+char	**set_tokens(t_minishell *mini, char *input);
+void	remove_quotes_aux(char *s);
+int		has_quotes(char	*str);
+void	remove_quotes(char **tokens);
+int		look_for_expansion(char **tokens);
+
 //add_spaces_tokenizer
 char	*add_spaces_tokenizer(char *input, int i, int j, int len);
 int		add_spaces_aux(char *input, char *result, int i, int j);
@@ -101,19 +108,15 @@ char	*var_name_exp(char *s);
 char	*from_beginning_to_dollar(char	*s);
 char	*from_var_name_to_end(char *s);
 
-//main_tokenizer
-char	**set_tokens(t_minishell *mini, char *input);
-void	remove_quotes_aux(char *s);
-int		has_quotes(char	*str);
-void	remove_quotes(char **tokens);
-int		look_for_expansion(char **tokens);
-
 //set_execution_nodes
 void	set_execution_nodes(t_minishell *mini);
 t_node	**create_exec_nodes(t_minishell *mini, int nbr);
 t_node	*create_exec_nodes_aux(t_minishell *mini);
 int		pipes_handler(char **tokens);
 int		check_wrong_redir(char **tok);
+
+//set_full_cmd
+
 
 //print_aux
 void	print_aux(t_minishell *mini);

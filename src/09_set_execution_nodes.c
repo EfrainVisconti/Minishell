@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   09_set_execution_nodes.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: usuario <usuario@student.42.fr>            +#+  +:+       +#+        */
+/*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 12:32:48 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/09 15:48:45 by usuario          ###   ########.fr       */
+/*   Updated: 2024/08/10 19:17:19 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ t_node	*create_exec_nodes_aux(t_minishell *mini)
 	t_node	*new;
 
 	new = malloc(sizeof(t_node));
-	new->full_path = ft_strdup(mini->bin_path[0], 0);
+	new->full_cmd = set_full_cmd(mini->tokens);
 	return (new);
 }
 
