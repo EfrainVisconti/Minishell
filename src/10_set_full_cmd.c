@@ -6,39 +6,59 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 19:07:26 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/10 19:27:17 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/12 13:54:16 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// //struct for nodes resulting from separation by pipes
-// typedef struct s_node
-// {
-// 	char	**full_cmd;
-// 	char	*full_path;
-// 	int		infile;
-// 	int		outfile;
-// 	int		is_builtin;
-// }			t_node;
-
 #include "../inc/minishell.h"
 
-int	count_cmds(char **tokens)
+int	is_redirection(char *s)
 {
-	int i;
-
-	i = 0;
-	while (tokens)
+	if (!ft_strcmp(s, "<<") || !ft_strcmp(s, "<") ||
+	!ft_strcmp(s, ">>") || !ft_strcmp(s, ">"))
+		return (TRUE);
+	return  (FALSE);
 }
 
-char	**set_full_cmd(char **tokens)
+int	count_cmd(char **tokens)
 {
-	int		i;
-	char	**full_cmd;
+	int i;
+	int	cmd;
 
-
+	cmd = 0;
 	i = 0;
 	while (tokens[i] != NULL)
 	{
-		if
+		if (is_redirection(tokens[i]))
+			i++;
+		else
+			cmd++;
+		i++;
 	}
+	return (cmd);
+}
+
+char	**set_full_cmd(char **tokens, int i, int cmd)
+{
+	char	**full_cmd;
+
+	cmd = count_cmd(tokens);
+	i = 0;
+	if (cmd > 0)
+		full_cmd = malloc(sizeof(char *) * (cmd + 1));
+	else
+		return (NULL);
+	if (!full_cmd)
+		return (NULL);
+	cmd = 0;
+	while (tokens[i] != NULL)
+	{
+		if (is_redirection(tokens[i]))
+			i++;
+		else
+			full_cmd[cmd++] = tokens[i];
+		i++;
+	}
+	full_cmd[cmd] = NULL;
+	return (full_cmd);
 }

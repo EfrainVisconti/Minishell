@@ -6,13 +6,13 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 12:12:13 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/08 17:24:08 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/12 19:18:44 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	print_error(int id)
+void	print_error(int id, char *s)
 {
 	if (id == 1)
 		ft_putstr_fd("error: open quotes\n", 2);
@@ -32,6 +32,13 @@ void	print_error(int id)
 		ft_putstr_fd("syntax error near unexpected token `REDIR'\n", 2);
 	else if (id == 9)
 		ft_putstr_fd("syntax error near unexpected token `newline'\n", 2);
+	else if (id == 10)
+		ft_putstr_fd(" : No such file or directory\n", 2);
+	else if (id == 11)
+	{
+		ft_putstr_fd(s, 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
+	}
 }
 
 int	ft_arraylen(char **array)

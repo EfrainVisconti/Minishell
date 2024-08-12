@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:05:03 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/10 19:12:54 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/12 19:29:06 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "../libs/libft/libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <fcntl.h>
 
 # define FALSE 0
 # define TRUE 1
@@ -45,7 +46,6 @@ typedef struct s_node
 	char	*full_path;
 	int		infile;
 	int		outfile;
-	int		is_builtin;
 }			t_node;
 
 //main struct for the program
@@ -71,7 +71,7 @@ void	free_array(char **array);
 void	free_env(t_env *env);
 
 //utils.c
-void	print_error(int id);
+void	print_error(int id, char *s);
 int		ft_arraylen(char **array);
 int		ft_strcmp(char *s1, char *s2);
 char	*ft_strcpy(char	*s1, char *s2);
@@ -116,7 +116,16 @@ int		pipes_handler(char **tokens);
 int		check_wrong_redir(char **tok);
 
 //set_full_cmd
+char	**set_full_cmd(char **tokens, int i, int cmd);
+int		count_cmd(char **tokens);
+int		is_redirection(char *s);
 
+//set_full_path
+char	*set_full_path(t_node *node, char **bin_path);
+int		is_builtin(char *s);
+
+//set_infile_outfile
+int	set_infile_outfile(t_minishell *mini, t_node *node, char **tok);
 
 //print_aux
 void	print_aux(t_minishell *mini);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   00_main.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: usuario <usuario@student.42.fr>            +#+  +:+       +#+        */
+/*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:14:11 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/09 15:49:16 by usuario          ###   ########.fr       */
+/*   Updated: 2024/08/12 19:19:41 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,23 @@ int	check_pipe_redir(char *s, int i, int sq, int dq)
 	{
 		handle_quotes(s[i], &sq, &dq);
 		if (s[i] == '|' && s[i + 1] == '|' && !dq && !sq)
-			return (print_error(2), FALSE);
+			return (print_error(2, NULL), FALSE);
 		else if (s[i] == '>' && (s[i + 1] == '<' || (s[i + 1] == '>'
 					&& s[i + 2] == '>' && s[i + 3] != '>')) && !dq && !sq)
-			return (print_error(3), FALSE);
+			return (print_error(3, NULL), FALSE);
 		else if (s[i] == '<' && (s[i + 1] == '>' || (s[i + 1] == '<'
 					&& s[i + 2] == '<' && s[i + 3] != '<')) && !dq && !sq)
-			return (print_error(4), FALSE);
+			return (print_error(4,NULL), FALSE);
 		else if (s[i] == '>' && s[i + 1] == '>' && s[i + 2] == '>'
 			&& s[i + 3] == '>' && !dq && !sq)
-			return (print_error(5), FALSE);
+			return (print_error(5, NULL), FALSE);
 		else if (s[i] == '<' && s[i + 1] == '<' && s[i + 2] == '<'
 			&& s[i + 3] == '<' && !dq && !sq)
-			return (print_error(6), FALSE);
+			return (print_error(6, NULL), FALSE);
 		else if (s[i] == '<' && s[i + 1] == '|' && !dq && !sq)
-			return (print_error(2), FALSE);
+			return (print_error(2, NULL), FALSE);
 		else if (s[i] == '>' && s[i + 1] == '|' && !dq && !sq)
-			return (print_error(2), FALSE);
+			return (print_error(2, NULL), FALSE);
 		i++;
 	}
 	return (TRUE);
@@ -69,14 +69,14 @@ void	init_minishell(t_minishell *mini)
 		mini->input = ft_strdup(input, 0);
 		if (!ft_strcmp(input, "\"\"") || !ft_strcmp(input, "\'\'"))
 		{
-			print_error(7);//$? 127 TO DO
+			print_error(7, NULL);//$? 127 TO DO
 		}
 		else if (check_pipe_redir(input, 0, 0, 0) == TRUE) //$? 2 TO DO
 		{
 			mini->tokens = set_tokens(mini, input);
-			print_aux(mini);
 			if (mini->tokens)
 				set_execution_nodes(mini);
+			print_aux(mini);
 			free_array(mini->tokens);
 		}
 		free(input);

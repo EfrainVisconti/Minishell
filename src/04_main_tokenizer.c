@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   08_main_tokenizer.c                                :+:      :+:    :+:   */
+/*   04_main_tokenizer.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 19:44:43 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/07 17:53:00 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/12 19:20:12 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ char	**set_tokens(t_minishell *mini, char *input)
 		tok = quotes_tokenizer(input_spaces);
 		free(input_spaces);
 		if (tok == NULL)
-			return (print_error(1), NULL);
+			return (print_error(1, NULL), NULL);
 		if (look_for_expansion(tok) == TRUE)
 		{
 			tok = expand_vars(tok, mini->env);
