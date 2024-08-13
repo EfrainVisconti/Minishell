@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 14:37:16 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/12 21:33:11 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/13 11:30:58 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,10 @@ char	*set_full_path(t_node *node, char **bin_path)
 	{
 		while (bin_path[i] != NULL)
 		{
-			path = ft_strjoin(ft_strjoin(bin_path[i], "/", 0), node->full_cmd[0], 3);
+			path = ft_strjoin(ft_strjoin(bin_path[i], "/", 2), node->full_cmd[0], 3);
 			if (access(path, X_OK) == 0)
 				return (path) ;
+			free(path);
 			i++;
 		}
 	}

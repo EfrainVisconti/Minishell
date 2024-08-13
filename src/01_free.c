@@ -3,14 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   01_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: usuario <usuario@student.42.fr>            +#+  +:+       +#+        */
+/*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 12:07:14 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/09 15:41:23 by usuario          ###   ########.fr       */
+/*   Updated: 2024/08/13 11:36:21 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+void	free_nodes(t_node **nodes)
+{
+	int	i;
+
+	i = 0;
+	if (*nodes != NULL && nodes[i] != NULL)
+	{
+		while (nodes[i] != NULL)
+		{
+			if (nodes[i]->full_cmd != NULL)
+				free(nodes[i]->full_cmd);
+			if (nodes[i]->full_path != NULL)
+				free(nodes[i]->full_path);
+			free(nodes[i]);
+			i++;
+		}
+		free(nodes);
+	}
+}
 
 void	free_env(t_env *env)
 {

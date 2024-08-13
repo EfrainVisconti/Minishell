@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:05:03 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/12 19:29:06 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/13 11:11:52 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	handle_quotes(char c, int *qs, int *qd);
 void	free_main(t_minishell *mini);
 void	free_array(char **array);
 void	free_env(t_env *env);
+void	free_nodes(t_node **nodes);
 
 //utils.c
 void	print_error(int id, char *s);

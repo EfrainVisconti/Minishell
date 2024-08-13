@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 21:14:27 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/12 14:42:48 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/13 11:41:53 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,11 +86,15 @@ void	print_aux(t_minishell *mini)
 		while (mini->nodes[i] != NULL)
 		{
 			j = 0;
+			ft_printf("Full cmd: ");
 			while (mini->nodes[i]->full_cmd[j] != NULL)
 			{
-				ft_printf("%s\n", mini->nodes[i]->full_cmd[j]);
+				ft_printf("%s ", mini->nodes[i]->full_cmd[j]);
 				j++;
 			}
+			ft_printf("\n");
+			ft_printf("infile: %d\n", mini->nodes[i]->infile);
+			ft_printf("outfile: %d\n", mini->nodes[i]->outfile);
 			i++;
 		}
 	}

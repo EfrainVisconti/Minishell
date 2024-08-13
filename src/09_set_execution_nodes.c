@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 12:32:48 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/12 19:53:17 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/13 11:40:53 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,6 @@ t_node	*create_exec_nodes_aux(t_minishell *mini)
 	new->full_cmd = set_full_cmd(mini->tokens, 0, 0);
 	new->full_path = set_full_path(new, mini->bin_path);
 	set_infile_outfile(mini, new, mini->tokens);
-	ft_printf("infile: %d\n", new->infile);
-	ft_printf("outfile: %d\n", new->outfile);
 	return (new);
 }
 
