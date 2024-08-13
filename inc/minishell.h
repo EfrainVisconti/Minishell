@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:05:03 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/13 11:11:52 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/13 19:49:06 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,8 @@ char	*from_var_name_to_end(char *s);
 //set_execution_nodes
 void	set_execution_nodes(t_minishell *mini);
 t_node	**create_exec_nodes(t_minishell *mini, int nbr);
-t_node	*create_exec_nodes_aux(t_minishell *mini);
+t_node	*create_exec_nodes_aux(t_minishell *mini, char **tokens);
+char	**get_next_node(char **tmp, char ***next);
 int		pipes_handler(char **tokens);
 int		check_wrong_redir(char **tok);
 
@@ -126,7 +127,8 @@ char	*set_full_path(t_node *node, char **bin_path);
 int		is_builtin(char *s);
 
 //set_infile_outfile
-int	set_infile_outfile(t_minishell *mini, t_node *node, char **tok);
+int	set_infile_outfile(t_node *node, char **tok);
+void	check_heredoc(char **tokens);
 
 //print_aux
 void	print_aux(t_minishell *mini);

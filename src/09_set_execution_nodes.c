@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 12:32:48 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/13 11:40:53 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/13 19:50:17 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,34 @@ int	pipes_handler(char **tokens)
 	return (count);
 }
 
+char	**get_next_node(char **tmp, char ***next)
+{
+	int		count;
+	int		i;
+	char	**elements;
+
+	count = 0;
+	i = 0;
+	while (tmp[count] && ft_strcmp(tmp[count], "|"))
+		count++;
+	elements = malloc(sizeof(char *) * (count + 1));
+	if (!elements)
+		return (NULL);
+	while (i < count)
+	{
+		elements[i] = tmp[i];
+		i++;
+	}
+	elements[i] = NULL;
+	tmp += count;
+    if (*tmp && !ft_strcmp(*tmp, "|"))
+        tmp++;
+    *next = tmp;
+	return (elements);
+}
+
 //set_full_cmd puede retornar NULL OJO
-t_node	*create_exec_nodes_aux(t_minishell *mini)
+t_node	*create_exec_nodes_aux(t_minishell *mini, char **tokens)
 {
 	t_node	*new;
 
@@ -69,9 +95,10 @@ t_node	*create_exec_nodes_aux(t_minishell *mini)
 		return (NULL);
 	new->infile = STDIN_FILENO;
 	new->outfile = STDOUT_FILENO;
-	new->full_cmd = set_full_cmd(mini->tokens, 0, 0);
+	new->full_cmd = set_full_cmd(tokens, 0, 0);
 	new->full_path = set_full_path(new, mini->bin_path);
-	set_infile_outfile(mini, new, mini->tokens);
+	set_infile_outfile(new, tokens);
+	free(tokens);
 	return (new);
 }
 
@@ -80,19 +107,35 @@ t_node	**create_exec_nodes(t_minishell *mini, int nbr)
 {
 	t_node	**nodes;
 	int		i;
+	char	**tmp;
+	char	**next;
 
 	i = 0;
 	nodes = malloc(sizeof(t_node *) * (nbr + 1));
 	if (nodes == NULL)
 		return (NULL);
+	tmp = mini->tokens;
 	if (nbr == 1)
 	{
-		nodes[i] = create_exec_nodes_aux(mini);
+		nodes[i] = create_exec_nodes_aux(mini, tmp);
 		i++;
 	}
 	else
 	{
-		ft_printf("dos nodos\n");
+		while (nbr > 0)
+		{
+			tmp = get_next_node(tmp, &next);
+			int n = 0;
+			while (tmp[n] != NULL)
+			{
+				ft_printf("%d %s\n", n, tmp[n]);
+				n++;
+			}
+			nodes[i] = create_exec_nodes_aux(mini, tmp);
+			tmp = next;
+			i++;
+			nbr--;
+		}
 	}
 	nodes[i] = NULL;
 	return (nodes);

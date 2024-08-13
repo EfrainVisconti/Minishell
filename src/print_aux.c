@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 21:14:27 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/13 11:41:53 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/13 19:54:07 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,18 +81,27 @@ void	print_aux(t_minishell *mini)
 	i = 0;
 	ft_printf("--------------------------------------------------\n");
 	int j;
-	if (mini->nodes != NULL && mini->nodes[i] != NULL && mini->nodes[i]->full_cmd != NULL)
+	if (mini->nodes != NULL && mini->nodes[i] != NULL)
 	{
 		while (mini->nodes[i] != NULL)
 		{
 			j = 0;
-			ft_printf("Full cmd: ");
-			while (mini->nodes[i]->full_cmd[j] != NULL)
+			if (mini->nodes[i]->full_cmd != NULL)
 			{
-				ft_printf("%s ", mini->nodes[i]->full_cmd[j]);
-				j++;
+				ft_printf("Full cmd: ");
+				while (mini->nodes[i]->full_cmd[j] != NULL)
+				{
+					ft_printf("%s ", mini->nodes[i]->full_cmd[j]);
+					j++;
+				}
+				ft_printf("\n");
 			}
-			ft_printf("\n");
+			else
+				ft_printf("Full cmd NULL\n");
+			if (mini->nodes[i]->full_path != NULL)
+				ft_printf("%s\n", mini->nodes[i]->full_path);
+			else
+				ft_printf("Bin path NULL\n");
 			ft_printf("infile: %d\n", mini->nodes[i]->infile);
 			ft_printf("outfile: %d\n", mini->nodes[i]->outfile);
 			i++;
