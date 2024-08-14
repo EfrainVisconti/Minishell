@@ -1,19 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   06_expand_vars.c                                   :+:      :+:    :+:   */
+/*   07_expand_vars.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:56:05 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/10 18:35:49 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/14 12:27:33 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-//TO DO AÑADIR VARIABLE DE ENTORNO ? LLAMADA CON $? QUE ALMACENA SALIDA DE ERROR
-//DEL ULTIMO COMANDO EJECUTADO
 
 int	check_expand_needed(char *token, int *nbr)
 {
@@ -29,7 +26,8 @@ int	check_expand_needed(char *token, int *nbr)
 		handle_quotes(token[i], &qs, &qd);
 		if (!qs && token[i] == '$')
 		{
-			if ((token[i + 1] == '"' || token[i + 1] == '\'') && ft_strchr(" \t\n", token[i + 2]))
+			if ((token[i + 1] == '"' || token[i + 1] == '\'')
+				&& ft_strchr(" \t\n", token[i + 2]))
 				i++;
 			else if (!ft_strchr(" \t\n", token[i + 1]))
 				(*nbr)++;
@@ -39,29 +37,29 @@ int	check_expand_needed(char *token, int *nbr)
 	return (*nbr);
 }
 
-static char	*creates_new_aux(char *token, t_env *env, t_env *var, int *nbr)
+char	*creates_new_aux(char *token, t_env *env, t_env *var, int *nbr)
 {
-	char	*sec;
-	char	*first;
-	char	*new;
+	char	*s;
+	char	*f;
+	char	*n;
 	char	*name;
 
-	new = ft_strdup(token, 0);
+	n = ft_strdup(token, 0);
 	while (*nbr > 0)
 	{
-		name = var_name_exp(new);
+		name = var_name_exp(n);
 		var = find_env_var(&env, name);
 		free(name);
-		sec = from_var_name_to_end(new);
-		first = from_beginning_to_dollar(new);
-		free(new);
+		s = from_var_name_to_end(n);
+		f = from_beginning_to_dollar(n);
+		free(n);
 		if (var)
-			new = ft_strdup(ft_strjoin(ft_strjoin(first, var->content, 3), sec, 15), 1);
+			n = ft_strdup(ft_strjoin(ft_strjoin(f, var->content, 3), s, 15), 1);
 		else
-			new = ft_strdup(ft_strjoin(first, sec, 15), 1);
+			n = ft_strdup(ft_strjoin(f, s, 15), 1);
 		(*nbr)--;
 	}
-	return (new);
+	return (n);
 }
 
 char	*creates_new(char *token, t_env *env)
@@ -73,10 +71,10 @@ char	*creates_new(char *token, t_env *env)
 	var = NULL;
 	if (check_expand_needed(token, &nbr))
 	{
-			token = creates_new_aux(token, env, var, &nbr);
+		token = creates_new_aux(token, env, var, &nbr);
 	}
 	else
-	 	token = ft_strdup(token, 0);
+		token = ft_strdup(token, 0);
 	return (token);
 }
 

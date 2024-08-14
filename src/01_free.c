@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 12:07:14 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/13 11:36:21 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/14 18:20:08 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	free_nodes(t_node **nodes)
 	int	i;
 
 	i = 0;
-	if (*nodes != NULL && nodes[i] != NULL)
+	if (nodes && *nodes && nodes[i])
 	{
 		while (nodes[i] != NULL)
 		{

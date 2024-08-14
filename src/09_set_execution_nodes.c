@@ -6,58 +6,11 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 12:32:48 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/13 19:50:17 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/14 14:45:40 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-//last check of redirections before execution
-int	check_wrong_redir(char **tok)
-{
-	int	i;
-
-	i = 0;
-	while (tok[i] != NULL)
-	{
-		if (tok[i + 1] && (!ft_strcmp(tok[i], "<") || !ft_strcmp(tok[i], "<<")
-				|| !ft_strcmp(tok[i], ">") || !ft_strcmp(tok[i], ">>"))
-			&& (!ft_strcmp(tok[i + 1], "<") || !ft_strcmp(tok[i + 1], "<<")
-				|| !ft_strcmp(tok[i + 1], ">") || !ft_strcmp(tok[i + 1], ">>")))
-			return (FALSE);
-		i++;
-	}
-	if (!tok[i] && (!ft_strcmp(tok[i - 1], "<") || !ft_strcmp(tok[i - 1], "<<")
-		|| !ft_strcmp(tok[i - 1], ">") || !ft_strcmp(tok[i - 1], ">>")))
-		return (ERROR);
-	return (TRUE);
-}
-
-//last check of the pipes before execution
-int	pipes_handler(char **tokens)
-{
-	int	i;
-	int	count;
-
-	i = 0;
-	count = 0;
-	while (tokens[i] != NULL)
-	{
-		if (!ft_strcmp(tokens[i], "|"))
-		{
-			count++;
-			if (i == 0 || tokens[i + 1] == NULL || \
-				!ft_strcmp(tokens[i - 1], "<") || \
-				!ft_strcmp(tokens[i - 1], "<<") || \
-				!ft_strcmp(tokens[i - 1], ">") || \
-				!ft_strcmp(tokens[i - 1], ">>") || \
-				!ft_strcmp(tokens[i - 1], "|"))
-				return (ERROR);
-		}
-		i++;
-	}
-	return (count);
-}
 
 char	**get_next_node(char **tmp, char ***next)
 {
@@ -79,9 +32,9 @@ char	**get_next_node(char **tmp, char ***next)
 	}
 	elements[i] = NULL;
 	tmp += count;
-    if (*tmp && !ft_strcmp(*tmp, "|"))
-        tmp++;
-    *next = tmp;
+	if (*tmp && !ft_strcmp(*tmp, "|"))
+		tmp++;
+	*next = tmp;
 	return (elements);
 }
 
@@ -97,7 +50,10 @@ t_node	*create_exec_nodes_aux(t_minishell *mini, char **tokens)
 	new->outfile = STDOUT_FILENO;
 	new->full_cmd = set_full_cmd(tokens, 0, 0);
 	new->full_path = set_full_path(new, mini->bin_path);
-	set_infile_outfile(new, tokens);
+	if (set_infile_outfile(new, tokens) == ERROR)
+		new->is_exec = FALSE;
+	else
+		new->is_exec = TRUE;
 	free(tokens);
 	return (new);
 }
@@ -114,28 +70,15 @@ t_node	**create_exec_nodes(t_minishell *mini, int nbr)
 	nodes = malloc(sizeof(t_node *) * (nbr + 1));
 	if (nodes == NULL)
 		return (NULL);
+	mini->nbr_nodes = nbr;
 	tmp = mini->tokens;
-	if (nbr == 1)
+	while (nbr > 0)
 	{
+		tmp = get_next_node(tmp, &next);
 		nodes[i] = create_exec_nodes_aux(mini, tmp);
+		tmp = next;
 		i++;
-	}
-	else
-	{
-		while (nbr > 0)
-		{
-			tmp = get_next_node(tmp, &next);
-			int n = 0;
-			while (tmp[n] != NULL)
-			{
-				ft_printf("%d %s\n", n, tmp[n]);
-				n++;
-			}
-			nodes[i] = create_exec_nodes_aux(mini, tmp);
-			tmp = next;
-			i++;
-			nbr--;
-		}
+		nbr--;
 	}
 	nodes[i] = NULL;
 	return (nodes);
@@ -143,7 +86,7 @@ t_node	**create_exec_nodes(t_minishell *mini, int nbr)
 
 //initializes the execution nodes after checking if the pipes and
 //redirects are valid
-void	set_execution_nodes(t_minishell *mini)
+int	set_execution_nodes(t_minishell *mini)
 {
 	int	nbr;
 	int	redir;
@@ -151,11 +94,12 @@ void	set_execution_nodes(t_minishell *mini)
 	redir = check_wrong_redir(mini->tokens);
 	nbr = pipes_handler(mini->tokens);
 	if (nbr == ERROR)
-		print_error(2, NULL);
+		return (print_error(2, NULL), FALSE);
 	else if (redir == FALSE)
-		print_error(8, NULL);
+		return (print_error(8, NULL), FALSE);
 	else if (redir == ERROR)
-		print_error(9, NULL);
+		return (print_error(9, NULL), FALSE);
 	else if (nbr != ERROR && redir == TRUE)
 		mini->nodes = create_exec_nodes(mini, nbr + 1);
+	return (TRUE);
 }

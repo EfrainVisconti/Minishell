@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:05:03 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/13 19:49:06 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/14 17:12:02 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define MINISHELL_H
 
 # include <sys/types.h>
+# include <sys/wait.h>
+# include <unistd.h>
 # include "../libs/libft/libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -22,13 +24,6 @@
 # define FALSE 0
 # define TRUE 1
 # define ERROR -1
-
-# define OTHER 1
-# define RED_FROM 2	//operator '<'
-# define RED_TO 3	//operator '>'
-# define HEREDOC 4	//operator '<<'
-# define APPEND 5	//operator '>>'
-# define PIPE 6		//operator '|'
 
 //linked list for enviroment variables
 typedef struct s_env
@@ -46,6 +41,7 @@ typedef struct s_node
 	char	*full_path;
 	int		infile;
 	int		outfile;
+	int		is_exec;
 }			t_node;
 
 //main struct for the program
@@ -58,6 +54,7 @@ typedef struct s_minishell
 	char		**tokens;
 	int			pid;
 	t_node		**nodes;
+	int			nbr_nodes;
 }					t_minishell;
 
 //main.c
@@ -85,10 +82,10 @@ t_env	*find_env_var(t_env **env_var, char *name);
 
 //main_tokenizer
 char	**set_tokens(t_minishell *mini, char *input);
-void	remove_quotes_aux(char *s);
-int		has_quotes(char	*str);
-void	remove_quotes(char **tokens);
 int		look_for_expansion(char **tokens);
+void	remove_quotes(char **tokens);
+int		has_quotes(char	*str);
+void	remove_quotes_aux(char *s);
 
 //add_spaces_tokenizer
 char	*add_spaces_tokenizer(char *input, int i, int j, int len);
@@ -102,6 +99,7 @@ int		count_tokens(char *s, int i, int tokens);
 //expand_vars
 char	**expand_vars(char **tokens, t_env *env);
 char	*creates_new(char *token, t_env *env);
+char	*creates_new_aux(char *token, t_env *env, t_env *var, int *nbr);
 int		check_expand_needed(char *token, int *nbr);
 
 //expand_vars_utils
@@ -110,10 +108,12 @@ char	*from_beginning_to_dollar(char	*s);
 char	*from_var_name_to_end(char *s);
 
 //set_execution_nodes
-void	set_execution_nodes(t_minishell *mini);
+int	set_execution_nodes(t_minishell *mini);
 t_node	**create_exec_nodes(t_minishell *mini, int nbr);
 t_node	*create_exec_nodes_aux(t_minishell *mini, char **tokens);
 char	**get_next_node(char **tmp, char ***next);
+
+//check_tokens
 int		pipes_handler(char **tokens);
 int		check_wrong_redir(char **tok);
 
@@ -123,14 +123,19 @@ int		count_cmd(char **tokens);
 int		is_redirection(char *s);
 
 //set_full_path
-char	*set_full_path(t_node *node, char **bin_path);
+char	*set_full_path(t_node *n, char **bin_path);
 int		is_builtin(char *s);
 
 //set_infile_outfile
-int	set_infile_outfile(t_node *node, char **tok);
+int		set_infile_outfile(t_node *node, char **tok);
 void	check_heredoc(char **tokens);
+
+//excute_commands
+void	execute_commands(t_minishell *mini);
 
 //print_aux
 void	print_aux(t_minishell *mini);
+
+extern int	g_status;
 
 #endif

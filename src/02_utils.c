@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 12:12:13 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/12 19:18:44 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/14 13:01:15 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	print_error(int id, char *s)
 	else if (id == 11)
 	{
 		ft_putstr_fd(s, 2);
-		ft_putstr_fd(": No such file or directory\n", 2);
+		ft_putstr_fd(" : No such file or directory\n", 2);
 	}
 }
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   10_set_full_cmd.c                                  :+:      :+:    :+:   */
+/*   11_set_full_cmd.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 19:07:26 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/13 11:26:26 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/14 12:37:39 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 int	is_redirection(char *s)
 {
-	if (!ft_strcmp(s, "<<") || !ft_strcmp(s, "<") ||
+	if (!ft_strcmp(s, "<<") || !ft_strcmp(s, "<") || \
 	!ft_strcmp(s, ">>") || !ft_strcmp(s, ">"))
 		return (TRUE);
-	return  (FALSE);
+	return (FALSE);
 }
 
 int	count_cmd(char **tokens)
 {
-	int i;
+	int	i;
 	int	cmd;
 
 	cmd = 0;

@@ -6,11 +6,13 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:14:11 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/13 18:52:38 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/14 18:46:12 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+int	g_status = 0;
 
 //handle quote status
 void	handle_quotes(char c, int *sq, int *dq)
@@ -35,7 +37,7 @@ int	check_pipe_redir(char *s, int i, int sq, int dq)
 			return (print_error(3, NULL), FALSE);
 		else if (s[i] == '<' && (s[i + 1] == '>' || (s[i + 1] == '<'
 					&& s[i + 2] == '<' && s[i + 3] != '<')) && !dq && !sq)
-			return (print_error(4,NULL), FALSE);
+			return (print_error(4, NULL), FALSE);
 		else if (s[i] == '>' && s[i + 1] == '>' && s[i + 2] == '>'
 			&& s[i + 3] == '>' && !dq && !sq)
 			return (print_error(5, NULL), FALSE);
@@ -74,8 +76,11 @@ void	init_minishell(t_minishell *mini)
 		else if (check_pipe_redir(input, 0, 0, 0) == TRUE) //$? 2 TO DO
 		{
 			mini->tokens = set_tokens(mini, input);
-			if (mini->tokens)
-				set_execution_nodes(mini);
+			if (mini->tokens && mini->tokens[0])
+			{
+				if (set_execution_nodes(mini) == TRUE)
+					execute_commands(mini);
+			}
 			print_aux(mini);
 			free_array(mini->tokens);
 			free_nodes(mini->nodes);

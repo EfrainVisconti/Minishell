@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 21:14:27 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/13 19:54:07 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/14 18:52:41 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ void	print_aux(t_minishell *mini)
 	}
 	else
 		ft_printf("TOKENS NULL\n");
+	ft_printf("--------------------------------------------------\n");
+	ft_printf("Number of nodes: %d\n", mini->nbr_nodes);
 	i = 0;
 	ft_printf("--------------------------------------------------\n");
 	int j;
@@ -99,11 +101,12 @@ void	print_aux(t_minishell *mini)
 			else
 				ft_printf("Full cmd NULL\n");
 			if (mini->nodes[i]->full_path != NULL)
-				ft_printf("%s\n", mini->nodes[i]->full_path);
+				ft_printf("Bin path: %s\n", mini->nodes[i]->full_path);
 			else
 				ft_printf("Bin path NULL\n");
 			ft_printf("infile: %d\n", mini->nodes[i]->infile);
 			ft_printf("outfile: %d\n", mini->nodes[i]->outfile);
+			ft_printf("is executable: %d\n", mini->nodes[i]->is_exec);
 			i++;
 		}
 	}
