@@ -6,11 +6,29 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 12:12:13 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/14 13:01:15 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/15 13:43:18 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+void	print_error2(int id, char *s)
+{
+	if (id == 11)
+	{
+		ft_putstr_fd(s, 2);
+		ft_putstr_fd(" : No such file or directory\n", 2);
+	}
+	else if (id == 12)
+	{
+		ft_putstr_fd(s, 2);
+		ft_putstr_fd(": command not found\n", 2);
+	}
+	else if (id == 13)
+		ft_putstr_fd("Error with input file\n", 2);
+	else if (id == 14)
+		ft_putstr_fd("Error with output file\n", 2);
+}
 
 void	print_error(int id, char *s)
 {
@@ -34,11 +52,9 @@ void	print_error(int id, char *s)
 		ft_putstr_fd("syntax error near unexpected token `newline'\n", 2);
 	else if (id == 10)
 		ft_putstr_fd(" : No such file or directory\n", 2);
-	else if (id == 11)
-	{
-		ft_putstr_fd(s, 2);
-		ft_putstr_fd(" : No such file or directory\n", 2);
-	}
+	else
+		print_error2(id, s);
+
 }
 
 int	ft_arraylen(char **array)

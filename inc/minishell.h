@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:05:03 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/14 17:12:02 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/15 12:12:18 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,11 @@ void	free_env(t_env *env);
 void	free_nodes(t_node **nodes);
 
 //utils.c
-void	print_error(int id, char *s);
-int		ft_arraylen(char **array);
-int		ft_strcmp(char *s1, char *s2);
 char	*ft_strcpy(char	*s1, char *s2);
+int		ft_strcmp(char *s1, char *s2);
+int		ft_arraylen(char **array);
+void	print_error(int id, char *s);
+void	print_error2(int id, char *s);
 
 //environment
 void	set_env(char **env, t_minishell *mini);
