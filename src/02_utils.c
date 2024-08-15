@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 12:12:13 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/15 13:43:18 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/15 20:42:06 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ void	print_error2(int id, char *s)
 		ft_putstr_fd("Error with input file\n", 2);
 	else if (id == 14)
 		ft_putstr_fd("Error with output file\n", 2);
+	else if (id == 15)
+		ft_putstr_fd("Error with pipe input\n", 2);
+	else if (id == 16)
+		ft_putstr_fd("Error with pipe output\n", 2);
 }
 
 void	print_error(int id, char *s)

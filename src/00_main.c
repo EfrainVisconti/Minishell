@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:14:11 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/15 11:44:02 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/15 16:40:04 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,10 @@ void	init_minishell(t_minishell *mini)
 			{
 				if (set_execution_nodes(mini) == TRUE)
 					execute_commands(mini);
+				free_nodes(mini->nodes);
 			}
 			//print_aux(mini);
 			free_array(mini->tokens);
-			free_nodes(mini->nodes);
 		}
 		free(input);
 		free(mini->input);

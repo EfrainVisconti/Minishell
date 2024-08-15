@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 12:07:14 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/14 18:20:08 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/15 16:25:41 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	free_nodes(t_node **nodes)
 			free(nodes[i]);
 			i++;
 		}
-		free(nodes);
 	}
+	free(nodes);
 }
 
 void	free_env(t_env *env)

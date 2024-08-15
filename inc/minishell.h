@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:05:03 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/15 12:12:18 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/15 20:31:19 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@
 # define FALSE 0
 # define TRUE 1
 # define ERROR -1
+
+# define READ 0
+# define WRITE 1
 
 //linked list for enviroment variables
 typedef struct s_env
