@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:45:08 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/16 16:48:42 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/17 15:04:32 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	execute_commands(t_minishell *mini)
 	}
 	else if (mini->nbr_nodes > 1)
 	{
-		while (i < mini->nbr_nodes)
+		while (mini->nodes[i])
 		{
 			if (pipe(pipefd) == -1)
 				return ;
@@ -70,6 +70,16 @@ void	execute_commands(t_minishell *mini)
 					if (dup2(mini->nodes[i]->infile, STDIN_FILENO) == -1)
 						print_error(13, NULL);
 					close(mini->nodes[i]->infile);
+				}
+				else if (mini->nodes[i]->infile == STDIN_FILENO && i != 0)
+				{
+
+				}
+				if (mini->nodes[i]->outfile != STDOUT_FILENO)
+				{
+					if (dup2(mini->nodes[i]->outfile, STDOUT_FILENO) == -1)
+						print_error(13, NULL);
+					close(mini->nodes[i]->outfile);
 				}
 				if (i < mini->nbr_nodes - 1)
 				{
@@ -89,8 +99,8 @@ void	execute_commands(t_minishell *mini)
 				waitpid(pid, &g_status, 0);
 				close(pipefd[WRITE]);
 				if (dup2(pipefd[READ], STDIN_FILENO) == -1)
-					print_error(16, NULL);
-				close(pipefd[READ]);
+				 	print_error(16, NULL);
+				 close(pipefd[READ]);
 			}
 			i++;
 		}
