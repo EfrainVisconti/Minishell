@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 12:12:13 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/17 13:57:35 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/18 16:23:04 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,11 @@ void	print_error2(int id, char *s)
 		ft_putstr_fd(": command not found\n", 2);
 	}
 	else if (id == 13)
-		ft_putstr_fd("Error with input file\n", 2);
+		ft_putstr_fd("Error with input file or pipe output\n", 2);
 	else if (id == 14)
 		ft_putstr_fd("Error with output file\n", 2);
 	else if (id == 15)
 		ft_putstr_fd("Error with pipe input\n", 2);
-	else if (id == 16)
-		ft_putstr_fd("Error with pipe output\n", 2);
 }
 
 void	print_error(int id, char *s)

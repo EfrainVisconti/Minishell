@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:05:03 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/16 14:07:44 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/18 18:27:33 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ typedef struct s_minishell
 	char		**bin_path;
 	char		*input;
 	char		**tokens;
-	int			pid;
 	t_node		**nodes;
 	int			nbr_nodes;
 }					t_minishell;
@@ -136,6 +135,12 @@ void	check_heredoc(char **tokens);
 
 //excute_commands
 void	execute_commands(t_minishell *mini);
+
+//builtins
+void	execute_builtin(char *s, t_minishell *mini, int i);
+void	ft_echo(t_node *node);
+void	ft_exit(t_minishell *mini, t_node *node);
+
 
 //print_aux
 void	print_aux(t_minishell *mini);

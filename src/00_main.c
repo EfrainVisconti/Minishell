@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:14:11 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/17 14:57:13 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/18 17:41:35 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,20 +62,15 @@ void	init_minishell(t_minishell *mini)
 	{
 		input = readline("minishell:");
 		add_history(input);
-		if (!ft_strcmp(input, "exit"))
-		{
-			ft_putstr_fd("exit\n", 2);
-			free(input);
-			break ;
-		}
 		mini->input = ft_strdup(input, 0);
-		if (!ft_strcmp(input, "\"\"") || !ft_strcmp(input, "\'\'"))
+		free(input);
+		if (!ft_strcmp(mini->input, "\"\"") || !ft_strcmp(mini->input, "\'\'"))
 		{
 			print_error(7, NULL);//$? 127 TO DO
 		}
-		else if (check_pipe_redir(input, 0, 0, 0) == TRUE) //$? 2 TO DO
+		else if (check_pipe_redir(mini->input, 0, 0, 0) == TRUE) //$? 2 TO DO
 		{
-			mini->tokens = set_tokens(mini, input);
+			mini->tokens = set_tokens(mini, mini->input);
 			if (mini->tokens && mini->tokens[0])
 			{
 				if (set_execution_nodes(mini) == TRUE)
@@ -85,7 +80,6 @@ void	init_minishell(t_minishell *mini)
 			//print_aux(mini);
 			free_array(mini->tokens);
 		}
-		free(input);
 		free(mini->input);
 	}
 }
