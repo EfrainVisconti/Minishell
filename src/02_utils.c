@@ -6,11 +6,27 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 12:12:13 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/18 16:23:04 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/19 21:29:23 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+void	print_error3(int id, char *s)
+{
+	if (id == 17)
+	{
+		ft_putstr_fd("exit: ", 2);
+		ft_putstr_fd(s, 2);
+		ft_putstr_fd(": numeric argument required\n", 2);
+	}
+	else if (id == 18)
+	{
+		ft_putstr_fd("env: ", 2);
+		ft_putstr_fd(s, 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
+	}
+}
 
 void	print_error2(int id, char *s)
 {
@@ -30,6 +46,10 @@ void	print_error2(int id, char *s)
 		ft_putstr_fd("Error with output file\n", 2);
 	else if (id == 15)
 		ft_putstr_fd("Error with pipe input\n", 2);
+	else if (id == 16)
+		ft_putstr_fd("exit\nexit: too many arguments\n", 2);
+	else
+		print_error3(id, s);
 }
 
 void	print_error(int id, char *s)
@@ -56,7 +76,6 @@ void	print_error(int id, char *s)
 		ft_putstr_fd(" : No such file or directory\n", 2);
 	else
 		print_error2(id, s);
-
 }
 
 int	ft_arraylen(char **array)
