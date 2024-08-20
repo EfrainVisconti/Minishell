@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:05:03 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/19 22:40:02 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/20 20:02:24 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,12 +139,14 @@ void	execute_commands(t_minishell *mini);
 
 //builtins
 void	execute_builtin(char *s, t_minishell *mini, int i);
+int		ft_cd(t_minishell *mini, t_node *node);
 void	ft_unset(t_minishell *mini, t_node *node, int len);
 void	ft_pwd(void);
 int		ft_env(t_minishell *mini, t_node *node, int len);
 int		ft_exit(t_minishell *mini, t_node *node);
 int		is_numeric(char *str);
 void	ft_echo(t_node *node);
+void	ft_echo2(t_node *node);
 
 //print_aux
 void	print_aux(t_minishell *mini);

@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:14:11 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/18 17:41:35 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/20 14:23:35 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	init_minishell(t_minishell *mini)
 
 	while (1)
 	{
+		set_bin_path(mini);
 		input = readline("minishell:");
 		add_history(input);
 		mini->input = ft_strdup(input, 0);
@@ -94,7 +95,6 @@ int	main(int argc, char **argv, char **env)
 	ft_memset(&mini, 0, sizeof(mini));
 	mini.argenv = env;
 	set_env(env, &mini);
-	set_bin_path(&mini);
 	init_minishell(&mini);
 	free_main(&mini);
 	return (0);

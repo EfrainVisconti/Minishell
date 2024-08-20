@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 12:12:13 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/19 21:29:23 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/20 19:22:04 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	print_error3(int id, char *s)
 		ft_putstr_fd(s, 2);
 		ft_putstr_fd(": No such file or directory\n", 2);
 	}
+	else if (id == 19)
+		ft_putstr_fd("cd: too many arguments\n", 2);
 }
 
 void	print_error2(int id, char *s)

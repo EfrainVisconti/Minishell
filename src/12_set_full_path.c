@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 14:37:16 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/14 18:22:04 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/20 13:54:47 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*set_full_path(t_node *n, char **bin_path)
 	int		i;
 
 	i = 0;
-	if (n->full_cmd && !is_builtin(n->full_cmd[0]))
+	if (bin_path && n->full_cmd && !is_builtin(n->full_cmd[0]))
 	{
 		while (bin_path[i] != NULL)
 		{

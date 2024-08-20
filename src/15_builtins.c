@@ -6,11 +6,40 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:11:52 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/19 22:46:50 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/20 20:56:03 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+void	ft_echo2(t_node *node)
+{
+	int	i;
+	int	len;
+
+	len = ft_arraylen(node->full_cmd);
+	i = 1;
+	if (!ft_strcmp(node->full_cmd[i], "-n"))
+	{
+		i++;
+		while (node->full_cmd[i])
+		{
+			ft_putstr_fd(node->full_cmd[i], node->outfile);
+			if (i++ < len - 1)
+				ft_putstr_fd(" ", node->outfile);
+		}
+	}
+	else
+	{
+		while (node->full_cmd[i])
+		{
+			ft_putstr_fd(node->full_cmd[i], node->outfile);
+			if (i++ < len - 1)
+				ft_putstr_fd(" ", node->outfile);
+		}
+		ft_putstr_fd("\n", node->outfile);
+	}
+}
 
 void	ft_echo(t_node *node)
 {
@@ -154,13 +183,50 @@ void	ft_unset(t_minishell *mini, t_node *node, int len)
 	}
 }
 
+int	ft_cd(t_minishell *mini, t_node *node)
+{
+	char	*cwd;
+	int		len;
+	char	*dir;
+	t_env	*old;
+	t_env	*pwd;
+
+
+	len = ft_arraylen(node->full_cmd);
+	cwd = getcwd(NULL, 0);
+	old = find_env_var(&(mini->env), "OLDPWD");
+	pwd = find_env_var(&(mini->env), "PWD");
+	if (len == 2 && (!ft_strcmp(node->full_cmd[1], ".") || !ft_strcmp(node->full_cmd[1], "")))
+		return (free(cwd), 0);
+	else if (len == 1)
+	{
+		dir = find_env_var(&(mini->env), "HOME")->name;
+		old->content = NULL;
+		free(old->content);
+		old->content = ft_strdup(cwd, 1);
+		pwd->content = NULL;
+		free(pwd->content);
+		pwd->content = ft_strdup(dir, 1);
+		return (0);
+	}
+	else if (len == 2 && ft_strcmp(node->full_cmd[1], "."))
+	{
+		ft_printf("to do cd\n");
+		return (free(cwd), 0);
+	}
+	else
+		return (print_error(19, NULL), free(cwd), 1);
+}
+
 void	execute_builtin(char *s, t_minishell *mini, int i)
 {
 	g_status = 0;
-	if (!ft_strcmp(s, "echo"))
+	if (!ft_strcmp(s, "echo") && mini->nbr_nodes != 1)
 		ft_echo(mini->nodes[i]);
-	// else if (!ft_strcmp(s, "cd"))
-	// 	ft_cd();
+	else if (!ft_strcmp(s, "echo") && mini->nbr_nodes == 1)
+		ft_echo2(mini->nodes[i]);
+	else if (!ft_strcmp(s, "cd"))
+	  	g_status = ft_cd(mini, mini->nodes[i]);
 	else if (!ft_strcmp(s, "pwd"))
 		ft_pwd();
 	// else if (!ft_strcmp(s, "export"))

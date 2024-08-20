@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 19:44:43 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/12 19:20:12 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/20 20:28:38 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ char	**set_tokens(t_minishell *mini, char *input)
 	int		len;
 
 	tok = NULL;
+	input_spaces = NULL;
 	len = ft_strlen(input);
 	if (input != NULL)
 		input_spaces = add_spaces_tokenizer(input, -1, 0, len);
