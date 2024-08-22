@@ -6,15 +6,15 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 12:16:52 by eviscont          #+#    #+#             */
-/*   Updated: 2024/02/02 16:14:56 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/22 20:17:17 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlen(const char *str)
+int	ft_strlen(const char *str)
 {
-	size_t	i;
+	int	i;
 
 	if (str == NULL)
 		return (0);

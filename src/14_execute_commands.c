@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:45:08 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/22 18:17:56 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/22 18:38:02 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ void	execute_commands(t_minishell *mini)
 	pid_t	pid;
 	int		pipefd[2];
 	int		i;
+	int		prev_pipe_read;
 
+	prev_pipe_read = -1;
 	i = 0;
 	if (mini->nbr_nodes == 1 && mini->nodes[0]->full_cmd)
 	{
@@ -71,18 +73,25 @@ void	execute_commands(t_minishell *mini)
 						print_error(13, NULL);
 					close(mini->nodes[i]->infile);
 				}
+				else if (prev_pipe_read != -1)
+				{
+					if (dup2(prev_pipe_read, STDIN_FILENO) == -1)
+						print_error(13, NULL);
+					close(prev_pipe_read);
+				}
 				if (mini->nodes[i]->outfile != STDOUT_FILENO)
 				{
 					if (dup2(mini->nodes[i]->outfile, STDOUT_FILENO) == -1)
 						print_error(14, NULL);
 					close(mini->nodes[i]->outfile);
 				}
-				else if (mini->nodes[i]->outfile == STDOUT_FILENO && i < mini->nbr_nodes - 1)
+				else if (i < mini->nbr_nodes - 1)
 				{
 					if (dup2(pipefd[WRITE], STDOUT_FILENO) == -1)
 						print_error(15, NULL);
-					close(pipefd[WRITE]);
 				}
+				close(pipefd[READ]);
+				close(pipefd[WRITE]);
 				if (!is_builtin(mini->nodes[i]->full_cmd[0])
 				&& mini->nodes[i]->is_exec)
 				{
@@ -96,16 +105,15 @@ void	execute_commands(t_minishell *mini)
 				&& mini->nodes[i]->is_exec)
 				{
 					execute_builtin(mini->nodes[i]->full_cmd[0], mini, i);
-					exit (0);
+					exit (g_status);
 				}
 			}
 			else
 			{
-				if (mini->nodes[i + 1] && mini->nodes[i + 1]->infile == STDIN_FILENO)
-					mini->nodes[i + 1]->infile = pipefd[READ];
 				close(pipefd[WRITE]);
-				if (mini->nodes[i + 1] && mini->nodes[i + 1]->infile != pipefd[READ])
-					close(pipefd[READ]);
+				if (prev_pipe_read != -1)
+					close(prev_pipe_read);
+				prev_pipe_read = pipefd[READ];
 			}
 			i++;
 		}

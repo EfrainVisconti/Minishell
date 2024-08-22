@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:14:11 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/22 14:01:57 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/22 21:22:54 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,14 @@ void	init_minishell(t_minishell *mini)
 		}
 		free_array(mini->bin_path);
 		free(mini->input);
+		t_env	*auxe;
+		auxe = mini->env;
+		while (auxe)
+		{
+			ft_printf("%s=%s\n", auxe->name, auxe->content);
+			ft_printf("%d\n", auxe->is_env);
+			auxe = auxe->next;
+		}
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 12:12:13 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/22 13:36:01 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/22 19:09:37 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	print_error3(int id, char *s)
 		ft_putstr_fd(s, 2);
 		ft_putstr_fd(": No such file or directory\n", 2);
 	}
+	else if (id == 21)
+		ft_putstr_fd("export: not a valid identifier\n", 2);
 }
 
 void	print_error2(int id, char *s)

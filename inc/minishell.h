@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:05:03 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/22 17:34:08 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/22 21:46:34 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	print_error3(int id, char *s);
 
 //environment
 void	set_env(char **env, t_minishell *mini);
-t_env	*new_env_node(char *name, char *content);
+t_env	*new_env_node(char *name, char *content, int env, int exp);
 void	set_bin_path(t_minishell *mini);
 t_env	*find_env_var(t_env **env_var, char *name);
 
@@ -142,6 +142,8 @@ void	execute_commands(t_minishell *mini);
 //builtins
 void	execute_builtin(char *s, t_minishell *mini, int i);
 int		ft_export(t_minishell *mini, t_node *node, int fd);
+void	export_add_node(t_env *env, char *name, char *content, int mode);
+int		check_var_exist(t_env *env, char *name);
 void	simple_export(t_env **env, int fd);
 void	simple_export_aux(t_env *cur, t_env **env, t_env *name, int *size, int fd);
 int		ft_cd(t_minishell *mini, t_node *node);
