@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 12:07:14 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/15 16:25:41 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/22 13:57:44 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	free_array(char **array)
 //free program from main exit fuction
 void	free_main(t_minishell *mini)
 {
-	free_array(mini->bin_path);
 	free_env(mini->env);
+	if (mini->bin_path)
+		free_array(mini->bin_path);
 }

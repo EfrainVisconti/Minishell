@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:45:08 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/20 15:37:28 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/22 18:17:56 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,13 @@ void	execute_commands(t_minishell *mini)
 				close(pipefd[WRITE]);
 				if (mini->nodes[i + 1] && mini->nodes[i + 1]->infile != pipefd[READ])
 					close(pipefd[READ]);
-				waitpid(pid, &g_status, 0);
 			}
+			i++;
+		}
+		i = 0;
+		while (i < mini->nbr_nodes)
+		{
+			wait(NULL);
 			i++;
 		}
 	}

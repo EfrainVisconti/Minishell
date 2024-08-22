@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   03_environment.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: usuario <usuario@student.42.fr>            +#+  +:+       +#+        */
+/*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 18:34:13 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/09 15:29:27 by usuario          ###   ########.fr       */
+/*   Updated: 2024/08/22 16:31:48 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ t_env	*new_env_node(char *name, char *content)
 	else
 		new_node->content = ft_strdup("", 0);
 	new_node->is_env = TRUE;
+	new_node->is_exp = FALSE;
+	new_node->is_printed = FALSE;
 	new_node->next = NULL;
 	return (new_node);
 }
