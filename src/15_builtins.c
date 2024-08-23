@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:11:52 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/22 22:15:29 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/23 16:10:20 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -314,7 +314,7 @@ void	execute_builtin(char *s, t_minishell *mini, int i)
 	else if (!ft_strcmp(s, "echo") && mini->nbr_nodes == 1)
 		ft_echo(mini->nodes[i], mini->nodes[i]->outfile);
 	else if (!ft_strcmp(s, "cd"))
-	  	g_status = ft_cd(mini, mini->nodes[i]);
+		g_status = ft_cd(mini, mini->nodes[i]);
 	else if (!ft_strcmp(s, "pwd") && mini->nbr_nodes != 1)
 		ft_pwd(1);
 	else if (!ft_strcmp(s, "pwd") && mini->nbr_nodes == 1)
