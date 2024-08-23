@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 12:32:48 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/20 13:53:39 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/23 15:32:26 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	**get_next_node(char **tmp, char ***next)
 	return (elements);
 }
 
-//set_full_cmd puede retornar NULL OJO
+//set_full_cmd can return NULL
 t_node	*create_exec_nodes_aux(t_minishell *mini, char **tokens)
 {
 	t_node	*new;
@@ -50,7 +50,7 @@ t_node	*create_exec_nodes_aux(t_minishell *mini, char **tokens)
 	new->outfile = STDOUT_FILENO;
 	new->full_cmd = set_full_cmd(tokens, 0, 0);
 	new->full_path = set_full_path(new, mini->bin_path);
-	if (set_infile_outfile(new, tokens) == ERROR)
+	if (set_infile_outfile(new, tokens, new->outfile, new->infile) == ERROR)
 		new->is_exec = FALSE;
 	else
 		new->is_exec = TRUE;

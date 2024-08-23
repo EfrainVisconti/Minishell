@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:05:03 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/22 21:46:34 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/23 15:31:01 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct s_minishell
 }					t_minishell;
 
 //main.c
-void	init_minishell(t_minishell *mini);
+void	init_minishell(t_minishell *mini, char *input);
 int		check_pipe_redir(char *input, int i, int sq, int dq);
 void	handle_quotes(char c, int *qs, int *qd);
 
@@ -76,9 +76,6 @@ void	free_nodes(t_node **nodes);
 char	*ft_strcpy(char	*s1, char *s2);
 int		ft_strcmp(char *s1, char *s2);
 int		ft_arraylen(char **array);
-void	print_error(int id, char *s);
-void	print_error2(int id, char *s);
-void	print_error3(int id, char *s);
 
 //environment
 void	set_env(char **env, t_minishell *mini);
@@ -114,7 +111,7 @@ char	*from_beginning_to_dollar(char	*s);
 char	*from_var_name_to_end(char *s);
 
 //set_execution_nodes
-int	set_execution_nodes(t_minishell *mini);
+int		set_execution_nodes(t_minishell *mini);
 t_node	**create_exec_nodes(t_minishell *mini, int nbr);
 t_node	*create_exec_nodes_aux(t_minishell *mini, char **tokens);
 char	**get_next_node(char **tmp, char ***next);
@@ -133,7 +130,10 @@ char	*set_full_path(t_node *n, char **bin_path);
 int		is_builtin(char *s);
 
 //set_infile_outfile
-int		set_infile_outfile(t_node *node, char **tok);
+int		set_infile_outfile(t_node *node, char **tok, int out_fd, int in_fd);
+int		third_case_aux(char **tok, int *in_fd, int i);
+int		second_case_aux(char **tok, int *out_fd, int i);
+int		first_case_aux(char **tok, int *out_fd, int i);
 void	check_heredoc(char **tokens);
 
 //excute_commands
@@ -153,6 +153,11 @@ int		ft_env(t_minishell *mini, t_node *node, int len, int fd);
 int		ft_exit(t_minishell *mini, t_node *node);
 int		is_numeric(char *str);
 void	ft_echo(t_node *node, int fd);
+
+//print_error
+void	print_error(int id, char *s);
+void	print_error2(int id, char *s);
+void	print_error3(int id, char *s);
 
 //print_aux
 void	print_aux(t_minishell *mini);

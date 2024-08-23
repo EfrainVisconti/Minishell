@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:14:11 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/22 21:22:54 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/23 13:49:43 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,8 @@ int	check_pipe_redir(char *s, int i, int sq, int dq)
 }
 
 //minishell loop
-void	init_minishell(t_minishell *mini)
+void	init_minishell(t_minishell *mini, char *input)
 {
-	char	*input;
-
 	while (1)
 	{
 		set_bin_path(mini);
@@ -65,11 +63,7 @@ void	init_minishell(t_minishell *mini)
 		add_history(input);
 		mini->input = ft_strdup(input, 0);
 		free(input);
-		if (!ft_strcmp(mini->input, "\"\"") || !ft_strcmp(mini->input, "\'\'"))
-		{
-			print_error(7, NULL);//$? 127 TO DO
-		}
-		else if (check_pipe_redir(mini->input, 0, 0, 0) == TRUE) //$? 2 TO DO
+		if (check_pipe_redir(mini->input, 0, 0, 0) == TRUE)
 		{
 			mini->tokens = set_tokens(mini, mini->input);
 			if (mini->tokens && mini->tokens[0])
@@ -80,33 +74,26 @@ void	init_minishell(t_minishell *mini)
 					free_nodes(mini->nodes);
 				}
 			}
-			//print_aux(mini);
 			free_array(mini->tokens);
 		}
 		free_array(mini->bin_path);
 		free(mini->input);
-		t_env	*auxe;
-		auxe = mini->env;
-		while (auxe)
-		{
-			ft_printf("%s=%s\n", auxe->name, auxe->content);
-			ft_printf("%d\n", auxe->is_env);
-			auxe = auxe->next;
-		}
 	}
 }
 
 int	main(int argc, char **argv, char **env)
 {
 	t_minishell	mini;
+	char		*input;
 
 	if (argc > 1)
 		return (1);
 	(void)argv;
+	input = NULL;
 	ft_memset(&mini, 0, sizeof(mini));
 	mini.argenv = env;
 	set_env(env, &mini);
-	init_minishell(&mini);
+	init_minishell(&mini, input);
 	free_main(&mini);
 	return (0);
 }

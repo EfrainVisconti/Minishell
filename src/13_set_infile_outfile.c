@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 17:34:26 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/14 12:41:46 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/23 15:53:31 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,52 +25,68 @@ void	check_heredoc(char **tokens)
 	}
 }
 
-int	set_infile_outfile(t_node *node, char **tok)
+int	first_case_aux(char **tok, int *out_fd, int i)
+{
+	if (*out_fd != STDOUT_FILENO)
+		close(*out_fd);
+	*out_fd = open(tok[i], O_CREAT | O_WRONLY | O_TRUNC, 0666);
+	if (*out_fd == -1)
+	{
+		print_error(10, NULL);
+		return (ERROR);
+	}
+	return (TRUE);
+}
+
+int	second_case_aux(char **tok, int *out_fd, int i)
+{
+	if (*out_fd != STDOUT_FILENO)
+		close(*out_fd);
+	*out_fd = open(tok[i], O_CREAT | O_WRONLY | O_APPEND, 0666);
+	if (*out_fd == -1)
+	{
+		print_error(10, NULL);
+		return (ERROR);
+	}
+	return (TRUE);
+}
+
+int	third_case_aux(char **tok, int *in_fd, int i)
+{
+	if (*in_fd != STDIN_FILENO)
+		close(*in_fd);
+	*in_fd = open(tok[i], O_RDONLY);
+	if (*in_fd == -1)
+	{
+		print_error(11, tok[i + 1]);
+		return (ERROR);
+	}
+	return (TRUE);
+}
+
+int	set_infile_outfile(t_node *node, char **tok, int out_fd, int in_fd)
 {
 	int	i;
-	int	out_fd;
-	int	in_fd;
 
-	i = 0;
-	in_fd = node->infile;
-	out_fd = node->outfile;
+	i = -1;
 	check_heredoc(tok);
-	while (tok[i] != NULL)
+	while (tok[++i] != NULL)
 	{
 		if (!ft_strcmp(tok[i], ">") && tok[i + 1])
 		{
-			if (out_fd != STDOUT_FILENO)
-				close(out_fd);
-			out_fd = open(tok[++i], O_CREAT | O_WRONLY | O_TRUNC, 0666);
-			if (out_fd == -1)
-			{
-				print_error(10, NULL);
+			if (first_case_aux(tok, &out_fd, ++i) == ERROR)
 				return (ERROR);
-			}
 		}
 		else if (!ft_strcmp(tok[i], ">>") && tok[i + 1])
 		{
-			if (out_fd != STDOUT_FILENO)
-				close(out_fd);
-			out_fd = open(tok[++i], O_CREAT | O_WRONLY | O_APPEND, 0666);
-			if (out_fd == -1)
-			{
-				print_error(10, NULL);
+			if (second_case_aux(tok, &out_fd, ++i) == ERROR)
 				return (ERROR);
-			}
 		}
 		else if (!ft_strcmp(tok[i], "<") && tok[i + 1])
 		{
-			if (in_fd != STDIN_FILENO)
-				close(in_fd);
-			in_fd = open(tok[++i], O_RDONLY);
-			if (in_fd == -1)
-			{
-				print_error(11, tok[i]);
+			if (third_case_aux(tok, &in_fd, ++i) == ERROR)
 				return (ERROR);
-			}
 		}
-		i++;
 	}
 	node->infile = in_fd;
 	node->outfile = out_fd;
