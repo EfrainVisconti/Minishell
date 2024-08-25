@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:05:03 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/23 15:31:01 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/25 19:40:16 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,15 +138,16 @@ void	check_heredoc(char **tokens);
 
 //excute_commands
 void	execute_commands(t_minishell *mini);
+void	execute_simple_command(t_minishell *mini, t_node *node, pid_t pid);
+void	excecute_pipe_sequence(t_minishell *mini, pid_t pid, int pipefd[2]);
+void	child_process(t_minishell *m, t_node *node, int aux[2], int pfd[2]);
+void	child_execution(t_minishell *min, t_node *node, int aux);
 
 //builtins
 void	execute_builtin(char *s, t_minishell *mini, int i);
-int		ft_export(t_minishell *mini, t_node *node, int fd);
-void	export_add_node(t_env *env, char *name, char *content, int mode);
-int		check_var_exist(t_env *env, char *name);
-void	simple_export(t_env **env, int fd);
-void	simple_export_aux(t_env *cur, t_env **env, t_env *name, int *size, int fd);
-int		ft_cd(t_minishell *mini, t_node *node);
+int		ft_cd(t_minishell *mini, t_node *node, char *cwd, char *dir);
+void	cd_to_dir(t_node *node, char **dir, t_env *old);
+void	cd_to_home(t_minishell *mini, char **dir, t_env *old, t_env *pwd);
 void	ft_unset(t_minishell *mini, t_node *node, int len);
 void	ft_pwd(int fd);
 int		ft_env(t_minishell *mini, t_node *node, int len, int fd);
@@ -154,13 +155,20 @@ int		ft_exit(t_minishell *mini, t_node *node);
 int		is_numeric(char *str);
 void	ft_echo(t_node *node, int fd);
 
+//export
+int		ft_export(t_minishell *mini, t_node *node, int fd);
+void	export_add_node(t_env *env, char *name, char *content, int mode);
+int		check_var_exist(t_env *env, char *name);
+void	simple_export(t_env **env, int fd);
+void	simple_export_aux(t_env *cur, t_env **env, t_env *name, int *size, int fd);
+
 //print_error
 void	print_error(int id, char *s);
 void	print_error2(int id, char *s);
 void	print_error3(int id, char *s);
 
-//print_aux
-void	print_aux(t_minishell *mini);
+// print_aux
+// void	print_aux(t_minishell *mini);
 
 extern int	g_status;
 

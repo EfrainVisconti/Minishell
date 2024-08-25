@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 13:58:31 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/23 13:58:54 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/25 18:32:19 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ void	print_error2(int id, char *s)
 		ft_putstr_fd("Error with input file or pipe output\n", 2);
 	else if (id == 14)
 		ft_putstr_fd("Error with output file\n", 2);
-	else if (id == 15)
-		ft_putstr_fd("Error with pipe input\n", 2);
 	else if (id == 16)
 		ft_putstr_fd("exit\nexit: too many arguments\n", 2);
 	else
