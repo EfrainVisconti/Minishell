@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:05:03 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/25 19:40:16 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/25 20:58:14 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <fcntl.h>
+# include <signal.h>
 
 # define FALSE 0
 # define TRUE 1
@@ -35,7 +36,7 @@ typedef struct s_env
 	char			*content;
 	int				is_env;
 	int				is_exp;
-	int				is_printed;
+	int				is_pri;
 	struct s_env	*next;
 }					t_env;
 
@@ -59,6 +60,7 @@ typedef struct s_minishell
 	char		**tokens;
 	t_node		**nodes;
 	int			nbr_nodes;
+	int			signal;
 }					t_minishell;
 
 //main.c
@@ -158,14 +160,16 @@ void	ft_echo(t_node *node, int fd);
 //export
 int		ft_export(t_minishell *mini, t_node *node, int fd);
 void	export_add_node(t_env *env, char *name, char *content, int mode);
-int		check_var_exist(t_env *env, char *name);
 void	simple_export(t_env **env, int fd);
-void	simple_export_aux(t_env *cur, t_env **env, t_env *name, int *size, int fd);
+void	simple_export_aux(t_env **cur_name, t_env **env, int *size, int fd);
 
 //print_error
 void	print_error(int id, char *s);
 void	print_error2(int id, char *s);
 void	print_error3(int id, char *s);
+
+//signals
+void	init_signals(int *signal_comand);
 
 // print_aux
 // void	print_aux(t_minishell *mini);

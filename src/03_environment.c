@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 18:34:13 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/22 19:10:05 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/25 20:40:07 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_env	*new_env_node(char *name, char *content, int env, int exp)
 		new_node->content = ft_strdup("", 0);
 	new_node->is_env = env;
 	new_node->is_exp = exp;
-	new_node->is_printed = FALSE;
+	new_node->is_pri = FALSE;
 	new_node->next = NULL;
 	return (new_node);
 }

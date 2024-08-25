@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:45:08 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/25 18:31:48 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/25 21:00:52 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,8 @@ void	execute_commands(t_minishell *mini)
 	int		pipefd[2];
 
 	pid = 0;
+	mini->signal = TRUE;
+	init_signals(&((*mini).signal));
 	if (mini->nbr_nodes == 1 && mini->nodes[0]->full_cmd)
 	{
 		if (is_builtin(mini->nodes[0]->full_cmd[0])

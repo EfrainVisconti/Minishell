@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:14:11 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/25 17:41:41 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/25 21:05:21 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ void	init_minishell(t_minishell *mini, char *input)
 {
 	while (1)
 	{
+		mini->signal = FALSE;
+		init_signals(&(mini->signal));
 		set_bin_path(mini);
 		input = readline("minishell:");
 		add_history(input);

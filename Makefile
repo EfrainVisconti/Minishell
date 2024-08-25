@@ -6,7 +6,7 @@
 #    By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/10 13:58:33 by eviscont          #+#    #+#              #
-#    Updated: 2024/08/25 19:44:06 by eviscont         ###   ########.fr        #
+#    Updated: 2024/08/25 21:01:13 by eviscont         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ SRC_FILES	=	00_main 01_free 02_utils 03_environment 06_quotes_tokenizer \
 				08_expand_vars_utils 09_set_execution_nodes 11_set_full_cmd \
 				12_set_full_path 13_set_infile_outfile 10_check_tokens \
 				14_execute_commands 18_print_error 15_builtins 16_builtins \
-				17_export print_aux
+				17_export 19_signals print_aux
 SRC			=	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ			=	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 LIBFT		=	libs/libft
