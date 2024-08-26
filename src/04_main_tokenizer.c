@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 19:44:43 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/20 20:28:38 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/26 16:46:19 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,10 @@ void	remove_quotes(char **tokens)
 	while (tokens[i])
 	{
 		if (has_quotes(tokens[i]) == 1)
-			remove_quotes_aux(tokens[i]);
+		{
+			if (ft_strcmp(tokens[i], "\"|\"") && ft_strcmp(tokens[i], "'|'"))
+				remove_quotes_aux(tokens[i]);
+		}
 		i++;
 	}
 }

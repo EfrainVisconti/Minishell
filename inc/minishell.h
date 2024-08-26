@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:05:03 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/25 20:58:14 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/26 16:40:37 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,10 @@ void	print_error3(int id, char *s);
 
 //signals
 void	init_signals(int *signal_comand);
+
+//exit_status
+void	set_exit_status(t_minishell *mini);
+void	update_exit_status(t_minishell *mini);
 
 // print_aux
 // void	print_aux(t_minishell *mini);
