@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:05:03 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/27 21:29:44 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/27 21:31:21 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	free_env(t_env *env);
 void	free_nodes(t_node **nodes);
 
 //utils.c
+char	*ft_herejoin(char const *s1, char const *s2);
 char	*ft_strcpy(char	*s1, char *s2);
 int		ft_strcmp(char *s1, char *s2);
 int		ft_arraylen(char **array);
@@ -137,7 +138,7 @@ int		set_infile_outfile(t_node *node, char **tok, int out_fd, int in_fd);
 int		third_case_aux(char **tok, int *in_fd, int i);
 int		second_case_aux(char **tok, int *out_fd, int i);
 int		first_case_aux(char **tok, int *out_fd, int i);
-void	check_heredoc(char **tokens);
+void	check_heredoc(char *limit, int *in_fd);
 
 //excute_commands
 void	execute_commands(t_minishell *mini);
@@ -176,6 +177,10 @@ void	init_signals(int *signal_comand);
 //exit_status
 void	set_exit_status(t_minishell *mini);
 void	update_exit_status(t_minishell *mini);
+
+//heredoc
+int		get_here_doc(char *str[2], char *aux[2]);
+char	*get_here_str(char *str[2], int len, char *limit, char *warn);
 
 // print_aux
 // void	print_aux(t_minishell *mini);
