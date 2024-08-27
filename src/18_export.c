@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 19:01:46 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/25 20:51:20 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/27 19:19:03 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,8 @@ void	export_add_node(t_env *env, char *name, char *content, int mode)
 	}
 	else
 	{
-		new_node_exist[1]->content = ft_strdup(content, 0);
 		free(new_node_exist[1]->content);
+		new_node_exist[1]->content = ft_strdup(content, 0);
 	}
 }
 
@@ -106,8 +106,8 @@ int	ft_export(t_minishell *mini, t_node *node, int fd)
 	len = ft_arraylen(node->full_cmd);
 	if (len == 1)
 		return (simple_export(&(mini->env), fd), 0);
-	else if (len > 1 && ft_strcmp(node->full_cmd[1], "?") && \
-		ft_strcmp(node->full_cmd[1], "_") && ft_strcmp(node->full_cmd[1], ""))
+	else if (len > 1 && node->full_cmd[1][0] != '?' && \
+	node->full_cmd[1][0] != '=' && node->full_cmd[1][0] != 0)
 	{
 		equal = ft_strchr(node->full_cmd[1], '=');
 		if (equal)

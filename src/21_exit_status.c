@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 14:59:59 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/26 17:34:10 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/26 19:48:44 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,8 @@ void	update_exit_status(t_minishell *mini)
 
 	exit_status = find_env_var(&(mini->env), "?");
 	free(exit_status->content);
-	exit_status->content = ft_itoa(g_status / 256);
+	if (g_status >= 256)
+		exit_status->content = ft_itoa(g_status / 256);
+	else
+		exit_status->content = ft_itoa(g_status);
 }

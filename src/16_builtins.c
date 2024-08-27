@@ -6,40 +6,11 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 19:01:16 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/25 19:28:33 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/27 19:38:31 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-void	ft_echo(t_node *node, int fd)
-{
-	int	i;
-	int	len;
-
-	len = ft_arraylen(node->full_cmd);
-	i = 1;
-	if (!ft_strcmp(node->full_cmd[i], "-n"))
-	{
-		i++;
-		while (node->full_cmd[i])
-		{
-			ft_putstr_fd(node->full_cmd[i], fd);
-			if (i++ < len - 1)
-				ft_putstr_fd(" ", fd);
-		}
-	}
-	else
-	{
-		while (node->full_cmd[i])
-		{
-			ft_putstr_fd(node->full_cmd[i], fd);
-			if (i++ < len - 1)
-				ft_putstr_fd(" ", fd);
-		}
-		ft_putstr_fd("\n", fd);
-	}
-}
 
 int	is_numeric(char *str)
 {
@@ -48,6 +19,8 @@ int	is_numeric(char *str)
 	i = 0;
 	while (str[i] != '\0')
 	{
+		if (str[0] == '-' || str[0] == '+')
+			i++;
 		if (!ft_isdigit(str[i]))
 			return (FALSE);
 		i++;

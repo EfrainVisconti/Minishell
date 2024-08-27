@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 12:32:48 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/23 15:32:26 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/27 19:55:47 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,11 @@ t_node	*create_exec_nodes_aux(t_minishell *mini, char **tokens)
 	new->outfile = STDOUT_FILENO;
 	new->full_cmd = set_full_cmd(tokens, 0, 0);
 	new->full_path = set_full_path(new, mini->bin_path);
-	if (set_infile_outfile(new, tokens, new->outfile, new->infile) == ERROR)
+	if (set_infile_outfile(new, tokens, STDOUT_FILENO, STDIN_FILENO) == ERROR)
 		new->is_exec = FALSE;
 	else
 		new->is_exec = TRUE;
+	new->n_pid = -1;
 	free(tokens);
 	return (new);
 }

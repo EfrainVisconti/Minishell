@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:05:03 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/26 16:40:37 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/27 21:26:35 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ void	check_heredoc(char **tokens);
 //excute_commands
 void	execute_commands(t_minishell *mini);
 void	execute_simple_command(t_minishell *mini, t_node *node, pid_t pid);
-void	excecute_pipe_sequence(t_minishell *mini, pid_t pid, int pipefd[2]);
+void	excecute_pipe_sequence(t_minishell *mini, int pipefd[2]);
 void	child_process(t_minishell *m, t_node *node, int aux[2], int pfd[2]);
 void	child_execution(t_minishell *min, t_node *node, int aux);
 
@@ -156,6 +156,7 @@ int		ft_env(t_minishell *mini, t_node *node, int len, int fd);
 int		ft_exit(t_minishell *mini, t_node *node);
 int		is_numeric(char *str);
 void	ft_echo(t_node *node, int fd);
+void	ft_echo_aux(t_node *node, int fd, int i, int len);
 
 //export
 int		ft_export(t_minishell *mini, t_node *node, int fd);

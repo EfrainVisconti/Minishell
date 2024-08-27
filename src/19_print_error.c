@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   16_print_error.c                                   :+:      :+:    :+:   */
+/*   18_print_error.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 13:58:31 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/25 18:32:19 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/27 14:45:58 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	print_error2(int id, char *s)
 {
 	if (id == 11)
 	{
+		g_status = 1;
 		ft_putstr_fd(s, 2);
 		ft_putstr_fd(" : No such file or directory\n", 2);
 	}
@@ -62,6 +63,7 @@ void	print_error2(int id, char *s)
 
 void	print_error(int id, char *s)
 {
+	g_status = 2;
 	if (id == 1)
 		ft_putstr_fd("error: open quotes\n", 2);
 	else if (id == 2)
@@ -79,7 +81,10 @@ void	print_error(int id, char *s)
 	else if (id == 9)
 		ft_putstr_fd("syntax error near unexpected token `newline'\n", 2);
 	else if (id == 10)
+	{
+		g_status = 1;
 		ft_putstr_fd(" : No such file or directory\n", 2);
+	}
 	else
 		print_error2(id, s);
 }

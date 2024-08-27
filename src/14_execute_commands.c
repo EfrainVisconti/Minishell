@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:45:08 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/25 21:00:52 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/27 14:16:12 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	child_process(t_minishell *min, t_node *node, int aux[2], int pipefd[2])
 	child_execution(min, node, aux[0]);
 }
 
-void	excecute_pipe_sequence(t_minishell *mini, pid_t pid, int pipefd[2])
+void	excecute_pipe_sequence(t_minishell *mini, int pipefd[2])
 {
 	int	aux[2];
 
@@ -68,10 +68,10 @@ void	excecute_pipe_sequence(t_minishell *mini, pid_t pid, int pipefd[2])
 	{
 		if (pipe(pipefd) == -1)
 			return ;
-		pid = fork();
-		if (pid == -1)
+		mini->nodes[aux[0]]->n_pid = fork();
+		if (mini->nodes[aux[0]]->n_pid == -1)
 			return ;
-		else if (pid == 0)
+		else if (mini->nodes[aux[0]]->n_pid == 0)
 			child_process(mini, mini->nodes[aux[0]], aux, pipefd);
 		else
 		{
@@ -83,7 +83,7 @@ void	excecute_pipe_sequence(t_minishell *mini, pid_t pid, int pipefd[2])
 	}
 	aux[0] = -1;
 	while (++aux[0] < mini->nbr_nodes)
-		wait(NULL);
+		waitpid(mini->nodes[aux[0]]->n_pid, &g_status, 0);
 }
 
 void	execute_simple_command(t_minishell *mini, t_node *node, pid_t pid)
@@ -133,5 +133,5 @@ void	execute_commands(t_minishell *mini)
 			execute_simple_command(mini, mini->nodes[0], pid);
 	}
 	else if (mini->nbr_nodes > 1)
-		excecute_pipe_sequence(mini, pid, pipefd);
+		excecute_pipe_sequence(mini, pipefd);
 }

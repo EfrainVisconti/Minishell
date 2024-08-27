@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:11:52 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/25 19:44:47 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/27 18:59:18 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,14 @@ void	ft_unset(t_minishell *mini, t_node *node, int len)
 		var = mini->env;
 		while (var)
 		{
-			if (!ft_strcmp(var->name, node->full_cmd[1]))
+			if (!ft_strcmp(var->name, node->full_cmd[1])
+				&& ft_strcmp(node->full_cmd[1], "?"))
 			{
 				if (prev == NULL)
 					mini->env = var->next;
 				else
 					prev->next = var->next;
-				free(var->content);
-				free(var->name);
-				free(var);
-				break ;
+				return (free(var->content), free(var->name), free(var));
 			}
 			prev = var;
 			var = var->next;
