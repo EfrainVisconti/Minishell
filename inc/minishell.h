@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:05:03 by eviscont          #+#    #+#             */
-/*   Updated: 2024/08/27 21:26:35 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/08/27 21:29:44 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_node
 	int		infile;
 	int		outfile;
 	int		is_exec;
+	pid_t	n_pid;
 }			t_node;
 
 //main struct for the program
